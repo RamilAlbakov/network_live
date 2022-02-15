@@ -6,6 +6,8 @@ authors = ["Ramil Albakov <ralbakov10@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+enm-client-scripting = {path = "../enm_client_scripting-1.20.1-py2.py3-none-any.whl"}
+python-dotenv = "^0.19.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
