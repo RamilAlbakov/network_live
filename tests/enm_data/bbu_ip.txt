@@ -1,0 +1,24 @@
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=LTE_Shymkent,MeContext=ERBS_41428_KAINARFARM_K,ManagedElement=ERBS_41428_KAINARFARM_K,Transport=1,Router=OAM,InterfaceIPv4=OAM,AddressIPv4=OAM
+address : 10.198.100.52/27
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=LTE_Shymkent,MeContext=ERBS_41428_KAINARFARM_K,ManagedElement=ERBS_41428_KAINARFARM_K,Transport=1,Router=S1_Kcell,InterfaceIPv4=S1_Kcell,AddressIPv4=S1_Kcell
+address : 10.194.100.52/27
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=LTE_South_Rural,MeContext=ERBS_42212_SHARSALDAR_K,ManagedElement=ERBS_42212_SHARSALDAR_K,Transport=1,Router=OAM,InterfaceIPv4=OAM,AddressIPv4=OAM
+address : 10.196.182.199/26
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=LTE_South_Rural,MeContext=ERBS_42212_SHARSALDAR_K,ManagedElement=ERBS_42212_SHARSALDAR_K,Transport=1,Router=S1_Kcell,InterfaceIPv4=S1_Kcell,AddressIPv4=S1_Kcell
+address : 10.192.182.199/26
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=LTE_Almaty,MeContext=ERBS_00074_KRSBGRALM_KB,ManagedElement=ERBS_00074_KRSBGRALM_KB,Transport=1,Router=S1-1,InterfaceIPv4=S1-1,AddressIPv4=S1-1
+address : 10.194.39.201/28
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ALMA_RNC_5,MeContext=00074KRSBGRALM,ManagedElement=00074KRSBGRALM,Transport=1,Router=Iub-2,InterfaceIPv4=Iub-2,AddressIPv4=Iub-2
+address : 10.202.39.205/28
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=LTE_Almaty,MeContext=ERBS_00074_KRSBGRALM_KB,ManagedElement=ERBS_00074_KRSBGRALM_KB,Transport=1,Router=OAM-2,InterfaceIPv4=OAM-2,AddressIPv4=OAM-2
+address : 10.198.39.201/28
+
+
+7822 instance(s)
+

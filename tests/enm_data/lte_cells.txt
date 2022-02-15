@@ -1,0 +1,36 @@
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=LTE_Shymkent,MeContext=ERBS_41428_KAINARFARM_K,ManagedElement=ERBS_41428_KAINARFARM_K,ENodeBFunction=1,EUtranCellFDD=541428-120
+administrativeState : UNLOCKED
+cellId : 120
+earfcndl : 150
+latitude : 3956357
+longitude : 3241091
+physicalLayerCellIdGroup : 22
+qRxLevMin : -124
+rachRootSequence : 111
+tac : 47251
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=LTE_South_Rural,MeContext=ERBS_42212_SHARSALDAR_K,ManagedElement=ERBS_42212_SHARSALDAR_K,ENodeBFunction=1,EUtranCellFDD=542212-102
+administrativeState : UNLOCKED
+cellId : 102
+earfcndl : 6200
+latitude : 3896122
+longitude : 3168282
+physicalLayerCellIdGroup : 0
+qRxLevMin : -124
+rachRootSequence : 731
+tac : 3258
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=LTE_Almaty,MeContext=ERBS_00074_KRSBGRALM_KB,ManagedElement=ERBS_00074_KRSBGRALM_KB,ENodeBFunction=1,EUtranCellFDD=500074-102
+administrativeState : UNLOCKED
+cellId : 102
+earfcndl : 6200
+latitude : 4025271
+longitude : 3584304
+physicalLayerCellIdGroup : 37
+qRxLevMin : -124
+rachRootSequence : 200
+tac : 13274
+
+
+15379 instance(s)
+

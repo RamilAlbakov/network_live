@@ -1,0 +1,12 @@
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=LTE_Shymkent,MeContext=ERBS_41428_KAINARFARM_K,ManagedElement=ERBS_41428_KAINARFARM_K,ENodeBFunction=1
+eNBId : 541428
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=LTE_South_Rural,MeContext=ERBS_42212_SHARSALDAR_K,ManagedElement=ERBS_42212_SHARSALDAR_K,ENodeBFunction=1
+eNBId : 542212
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=LTE_Almaty,MeContext=ERBS_00074_KRSBGRALM_KB,ManagedElement=ERBS_00074_KRSBGRALM_KB,ENodeBFunction=1
+eNBId : 500074
+
+
+2227 instance(s)
+
