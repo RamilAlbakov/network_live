@@ -334,6 +334,19 @@ python-versions = ">=3.6"
 pyparsing = ">=2.0.2,<3.0.5 || >3.0.5"
 
 [[package]]
+name = "parser-utils"
+version = "0.1.0"
+description = "Present some functions to parse ENM data"
+category = "main"
+optional = false
+python-versions = "^3.8"
+develop = false
+
+[package.source]
+type = "directory"
+url = "network_live/enm/parser_utils"
+
+[[package]]
 name = "pbr"
 version = "5.8.1"
 description = "Python Build Reasonableness"
@@ -580,7 +593,7 @@ typing_extensions = ">=3.6,<5.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "a964e484da35e04fecfc3b2934f4eb3722b239461bc04094b5224180d0b9965f"
+content-hash = "3dd48920386cbbc1dd80dab3439af63de698aafb9375472546f6786245ea3e9f"
 
 [metadata.files]
 astor = [
@@ -695,6 +708,7 @@ packaging = [
     {file = "packaging-21.3-py3-none-any.whl", hash = "sha256:ef103e05f519cdc783ae24ea4e2e0f508a9c99b2d4969652eed6a2e1ea5bd522"},
     {file = "packaging-21.3.tar.gz", hash = "sha256:dd47c42927d89ab911e606518907cc2d3a1f38bbd026385970643f9c5b8ecfeb"},
 ]
+parser-utils = []
 pbr = [
     {file = "pbr-5.8.1-py2.py3-none-any.whl", hash = "sha256:27108648368782d07bbf1cb468ad2e2eeef29086affd14087a6d04b7de8af4ec"},
     {file = "pbr-5.8.1.tar.gz", hash = "sha256:66bc5a34912f408bb3925bf21231cb6f59206267b7f63f3503ef865c1a292e25"},
