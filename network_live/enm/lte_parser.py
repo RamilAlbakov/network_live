@@ -1,6 +1,6 @@
 """Parse all necessary lte cell data from enm data for network live db."""
 
-from parser_utils import parse_mo_value, parse_node_parameter
+from network_live.enm.parser_utils import parse_mo_value
 
 
 def calculate_eci(enodeb_id, cell_id):
@@ -20,20 +20,19 @@ def calculate_eci(enodeb_id, cell_id):
     return int_enodeb_id * eci_factor + int_cell_id
 
 
-def parse_lte_cells(enm_lte_cells, enm_enodeb_ids, ip_data, date):
+def parse_lte_cells(enm_lte_cells, enodeb_ids, ip_data, date):
     """
     Parse lte cells parameters from ENM data.
 
     Args:
         enm_lte_cells: list of strings
-        enm_enodeb_ids: list of strings
+        enodeb_ids: list of strings
         ip_data: dict
         date: string
 
     Returns:
         list of dicts
     """
-    enodeb_ids = parse_node_parameter(enm_enodeb_ids, 'MeContext')
     lte_cells = []
     for element in enm_lte_cells:
         if 'FDN' in element:

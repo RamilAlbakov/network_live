@@ -1,22 +1,29 @@
 """Prepare cell data for network live for technologies for cells configured on ENM."""
 
 
-from datetime import datetime
-
-from dotenv import load_dotenv
-from enm import Enm
-
-load_dotenv('.env')
-
-date_format = '%{d}%m%y'.format(d='d')
-date = datetime.now().strftime(date_format)
+from network_live.enm.enm import Enm
+from network_live.enm.lte_parser import parse_lte_cells
+from network_live.enm.parser_utils import parse_ips, parse_node_parameter
 
 
-def enm_lte_main():
-    """Prepare neccessary lte cell data."""
-    enm_eutran_data = Enm.execute_enm_command('lte_cells')
-    print(enm_eutran_data)
+def enm_main(technology, date):
+    """
+    Prepare neccessary LTE/UMTS/GSM cell data for cells configured on ENM.
 
+    Args:
+        technology: string
+        date: string
 
-if __name__ == '__main__':
-    enm_lte_main()
+    Returns:
+        list of dicts
+    """
+    enm_lte_cells = Enm.execute_enm_command('lte_cells')
+
+    enm_enodeb_ids = Enm.execute_enm_command('enodeb_id')
+    enodeb_ids = parse_node_parameter(enm_enodeb_ids, 'MeContext')
+
+    enm_node_ips = Enm.execute_enm_command('dus_ip') + Enm.execute_enm_command('bbu_ip')
+    node_ips = parse_ips(enm_node_ips)
+
+    if technology == 'lte':
+        return parse_lte_cells(enm_lte_cells, enodeb_ids, node_ips, date)

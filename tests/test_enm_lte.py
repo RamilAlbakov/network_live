@@ -3,7 +3,7 @@
 
 from datetime import datetime
 from network_live.enm.lte_parser import parse_lte_cells
-from parser_utils import parse_ips
+from network_live.enm.parser_utils import parse_ips, parse_node_parameter
 
 
 def test_parse_lte_cells():
@@ -12,6 +12,7 @@ def test_parse_lte_cells():
         enm_lte_cells = lte_cells_obj.read().split('\n')
     with open('tests/enm_data/enodeb_id.txt') as enodeb_id_obj:
         enm_enodeb_ids = enodeb_id_obj.read().split('\n')
+        enodeb_ids = parse_node_parameter(enm_enodeb_ids, 'MeContext')
     with open('tests/enm_data/bbu_ip.txt') as bbu_ip_obj:
         enm_bbu_ips = bbu_ip_obj.read().split('\n')
         node_ips = parse_ips(enm_bbu_ips)
@@ -19,7 +20,7 @@ def test_parse_lte_cells():
     date_format = '%{d}%m%y'.format(d='d')
     date = datetime.now().strftime(date_format)
 
-    cell1, cell2, cell3 = parse_lte_cells(enm_lte_cells, enm_enodeb_ids, node_ips, date)
+    cell1, cell2, cell3 = parse_lte_cells(enm_lte_cells, enodeb_ids, node_ips, date)
 
     assert cell1['subnetwork'] == 'LTE_Shymkent'
     assert cell1['site_name'] == 'ERBS_41428_KAINARFARM_K'
