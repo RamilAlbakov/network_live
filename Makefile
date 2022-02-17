@@ -2,7 +2,7 @@ install:
 	poetry install
 
 test:
-	poetry run pytest --disable-warnings
+	poetry run pytest
 
 lint:
 	poetry run flake8 network_live

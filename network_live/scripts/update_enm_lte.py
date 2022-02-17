@@ -1,4 +1,4 @@
-"""Update network live db with Kcell cells configured in own OSS and shared by Beeline/Tele2."""
+"""Update network live with LTE cells configured on ENM."""
 
 
 from datetime import datetime
@@ -10,16 +10,11 @@ load_dotenv('.env')
 
 
 def main():
-    """Update network live db."""
+    """Update network live with ENM LTE cells."""
     date_format = '%{d}%m%y'.format(d='d')
     date = datetime.now().strftime(date_format)
 
-    update_results = []
-
-    enm_lte_result = enm_main('LTE', date)
-    update_results.append(enm_lte_result)
-
-    print(update_results)
+    print(enm_main('LTE', date))
 
 
 if __name__ == '__main__':

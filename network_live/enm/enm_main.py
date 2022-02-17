@@ -4,6 +4,7 @@
 from network_live.enm.enm import Enm
 from network_live.enm.lte_parser import parse_lte_cells
 from network_live.enm.parser_utils import parse_ips, parse_node_parameter
+from network_live.sql import Sql
 
 
 def enm_main(technology, date):
@@ -25,5 +26,6 @@ def enm_main(technology, date):
     enm_node_ips = Enm.execute_enm_command('dus_ip') + Enm.execute_enm_command('bbu_ip')
     node_ips = parse_ips(enm_node_ips)
 
-    if technology == 'lte':
-        return parse_lte_cells(enm_lte_cells, enodeb_ids, node_ips, date)
+    if technology == 'LTE':
+        lte_cells = parse_lte_cells(enm_lte_cells, enodeb_ids, node_ips, date)
+        return Sql.insert(lte_cells, 'ENM', technology)
