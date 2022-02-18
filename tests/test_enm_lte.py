@@ -1,7 +1,6 @@
 """Test enm lte cells parser."""
 
 
-from datetime import datetime
 from network_live.enm.lte_parser import parse_lte_cells
 from network_live.enm.parser_utils import parse_ips, parse_node_parameter
 
@@ -17,10 +16,7 @@ def test_parse_lte_cells():
         enm_bbu_ips = bbu_ip_obj.read().split('\n')
         node_ips = parse_ips(enm_bbu_ips)
 
-    date_format = '%{d}%m%y'.format(d='d')
-    date = datetime.now().strftime(date_format)
-
-    cell1, cell2, cell3 = parse_lte_cells(enm_lte_cells, enodeb_ids, node_ips, date)
+    cell1, cell2, cell3 = parse_lte_cells(enm_lte_cells, enodeb_ids, node_ips)
 
     assert cell1['subnetwork'] == 'LTE_Shymkent'
     assert cell1['site_name'] == 'ERBS_41428_KAINARFARM_K'

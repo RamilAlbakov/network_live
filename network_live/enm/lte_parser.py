@@ -1,5 +1,6 @@
 """Parse all necessary lte cell data from enm data for network live db."""
 
+from network_live.date import Date
 from network_live.enm.parser_utils import parse_mo_value
 
 
@@ -20,7 +21,7 @@ def calculate_eci(enodeb_id, cell_id):
     return int_enodeb_id * eci_factor + int_cell_id
 
 
-def parse_lte_cells(enm_lte_cells, enodeb_ids, ip_data, date):
+def parse_lte_cells(enm_lte_cells, enodeb_ids, ip_data):
     """
     Parse lte cells parameters from ENM data.
 
@@ -28,7 +29,6 @@ def parse_lte_cells(enm_lte_cells, enodeb_ids, ip_data, date):
         enm_lte_cells: list of strings
         enodeb_ids: list of strings
         ip_data: dict
-        date: string
 
     Returns:
         list of dicts
@@ -38,7 +38,7 @@ def parse_lte_cells(enm_lte_cells, enodeb_ids, ip_data, date):
         if 'FDN' in element:
             cell = {
                 'vendor': 'ericsson',
-                'insert_date': date,
+                'insert_date': Date.get_date('network_live'),
             }
             cell['subnetwork'] = parse_mo_value(element, 'SubNetwork')
             cell['site_name'] = parse_mo_value(element, 'MeContext')

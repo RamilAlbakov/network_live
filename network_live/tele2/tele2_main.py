@@ -5,9 +5,12 @@ from network_live.sql import Sql
 from network_live.tele2.parser import parse_lte
 
 
-def tele2_main(technology, date):
+def tele2_main(technology):
     """
     Update network live with Tele2 cells.
+
+    Args:
+        technology: string
 
     Returns:
         string
@@ -15,5 +18,5 @@ def tele2_main(technology, date):
     if technology == 'LTE':
         download_lte_logs('tele2')
         lte_log_path = 'logs/tele2/tele2_lte_log.csv'
-        lte_cells = parse_lte(lte_log_path, date)
+        lte_cells = parse_lte(lte_log_path)
         return Sql.insert(lte_cells, 'Tele2', 'LTE')

@@ -2,10 +2,10 @@
 
 
 import os
-from datetime import datetime, timedelta
 from zipfile import ZipFile
 
 import paramiko
+from network_live.date import Date
 
 
 def download_ftp_data(remote_path, local_path):
@@ -67,16 +67,13 @@ def download_lte_logs(operator):
         operator: string
     """
     if 'tele2' in operator:
-        date_format = '%Y%m%{d}'.format(d='d')
         logs_path = 'logs/tele2'
+        date = Date.get_date('tele2')
     elif 'beeline' in operator:
-        date_format = '%{d}.%m.%Y'.format(d='d')
         logs_path = 'logs/beeline'
+        date = Date.get_date('beeline')
 
     delete_old_logs(logs_path)
-
-    now = datetime.now()
-    date = (now - timedelta(days=2)).strftime(date_format)
 
     ftp_paths = {
         'tele2': '/reporter/tele2/mocn/{date}/Config_result_data_{date}.zip'.format(date=date),

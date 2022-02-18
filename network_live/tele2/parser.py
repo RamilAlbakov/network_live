@@ -3,6 +3,8 @@
 
 import csv
 
+from network_live.date import Date
+
 
 def convert_string_to_num(string_value):
     """
@@ -22,7 +24,7 @@ def convert_string_to_num(string_value):
     return num_value
 
 
-def parse_lte(log_path, date):
+def parse_lte(log_path):
     """
     Parse lte cells shared by Tele2.
 
@@ -43,7 +45,7 @@ def parse_lte(log_path, date):
                 'subnetwork': 'Tele2',
                 'ip_address': None,
                 'vendor': 'huawei',
-                'insert_date': date,
+                'insert_date': Date.get_date('network_live'),
             }
             lte_cell['enodeb_id'] = convert_string_to_num(row['eNodeB Id'])
             lte_cell['site_name'] = row['NENAME']
