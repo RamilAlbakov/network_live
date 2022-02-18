@@ -1,1 +1,1 @@
-"""Prepare neccessary cell data for network live for cells configured on ENM."""
+"""Update network_live with cells configured on ENM."""

@@ -1,1 +1,1 @@
-"""Parse necessary parameters for cells shared by Tele2."""
+"""Update network live with cells shared by Tele2."""

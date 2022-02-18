@@ -1,4 +1,4 @@
-"""Prepare cell data for network live for technologies for cells configured on ENM."""
+"""Update network live with ENM cells."""
 
 
 from network_live.enm.enm import Enm
@@ -9,7 +9,7 @@ from network_live.sql import Sql
 
 def enm_main(technology, date):
     """
-    Prepare neccessary LTE/UMTS/GSM cell data for cells configured on ENM.
+    Update network live with ENM cells.
 
     Args:
         technology: string

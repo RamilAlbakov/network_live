@@ -7,7 +7,7 @@ from network_live.tele2.parser import parse_lte
 def test_parse_lte():
     """Test Tele2 LTE parser."""
     log_path = 'tests/tele2_data/tele2_lte_log.csv'
-    cell1, cell2, cell3, cell4 = parse_lte(log_path)
+    cell1, cell2, cell3, cell4 = parse_lte(log_path, '180222')
 
     assert cell1['site_name'] == 'SE5070'
     assert cell1['cell_name'] == 'A-SE5070Z2L-0'

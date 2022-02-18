@@ -2,7 +2,6 @@
 
 
 import csv
-from datetime import datetime
 
 
 def convert_string_to_num(string_value):
@@ -23,7 +22,7 @@ def convert_string_to_num(string_value):
     return num_value
 
 
-def parse_lte(log_path):
+def parse_lte(log_path, date):
     """
     Parse lte cells shared by Tele2.
 
@@ -33,7 +32,6 @@ def parse_lte(log_path):
     Returns:
         list of dicts
     """
-    date_format = '%{d}%m%y'.format(d='d')
     lte_cells = []
     with open(log_path, mode='r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
@@ -45,7 +43,7 @@ def parse_lte(log_path):
                 'subnetwork': 'Tele2',
                 'ip_address': None,
                 'vendor': 'huawei',
-                'insert_date': datetime.now().strftime(date_format),
+                'insert_date': date,
             }
             lte_cell['enodeb_id'] = convert_string_to_num(row['eNodeB Id'])
             lte_cell['site_name'] = row['NENAME']

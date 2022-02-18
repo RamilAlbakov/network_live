@@ -1,11 +1,15 @@
 """Update network live with LTE cells shared by Tele2."""
 
 from dotenv import load_dotenv
-from network_live.download_logs import download_lte_logs
+from network_live.tele2.tele2_main import tele2_main
 
 load_dotenv('.env')
 
 
 def main():
     """Update network live with LTE cells shared by Tele2."""
-    download_lte_logs('beeline_nokia_moran')
+    print(tele2_main('LTE', '180222'))
+
+
+if __name__ == '__main__':
+    main()
