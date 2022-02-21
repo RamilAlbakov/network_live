@@ -2,6 +2,7 @@
 
 
 from dotenv import load_dotenv
+from network_live.beeline.beeline_main import beeline_main
 from network_live.enm.enm_main import enm_main
 from network_live.tele2.tele2_main import tele2_main
 
@@ -18,7 +19,11 @@ def main():
     tele2_lte_result = tele2_main('LTE')
     update_results.append(tele2_lte_result)
 
-    print(update_results)
+    beeline_lte_huawei_result = beeline_main('LTE Huawei')
+    update_results.append(beeline_lte_huawei_result)
+
+    for update_result in update_results:
+        print(update_result)
 
 
 if __name__ == '__main__':
