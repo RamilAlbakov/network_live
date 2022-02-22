@@ -13,7 +13,7 @@ def main():
     """Update network live db."""
     update_results = []
 
-    enm_lte_result = enm_main('LTE')
+    enm_lte_result = enm_main('LTE', truncate=True)
     update_results.append(enm_lte_result)
 
     tele2_lte_result = tele2_main('LTE')
@@ -21,6 +21,9 @@ def main():
 
     beeline_lte_huawei_result = beeline_main('LTE Huawei')
     update_results.append(beeline_lte_huawei_result)
+
+    beeline_lte_nokia_result = beeline_main('LTE Nokia')
+    update_results.append(beeline_lte_nokia_result)
 
     for update_result in update_results:
         print(update_result)

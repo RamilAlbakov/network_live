@@ -101,7 +101,7 @@ class Sql(object):
                     ))
                 for cell in cell_data:
                     cursor.execute(cls.insert_sqls[technology], cell)
-                # connection.commit()
+                connection.commit()
                 return '{technology} {oss} Success'.format(technology=technology, oss=oss)
         except cx_Oracle.Error:
             return '{technology} {oss} Fail'.format(technology=technology, oss=oss)

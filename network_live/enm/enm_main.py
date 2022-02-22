@@ -7,12 +7,13 @@ from network_live.enm.parser_utils import parse_ips, parse_node_parameter
 from network_live.sql import Sql
 
 
-def enm_main(technology):
+def enm_main(technology, truncate=False):
     """
     Update network live with ENM cells.
 
     Args:
         technology: string
+        truncate: bool
 
     Returns:
         list of dicts
@@ -27,4 +28,4 @@ def enm_main(technology):
 
     if technology == 'LTE':
         lte_cells = parse_lte_cells(enm_lte_cells, enodeb_ids, node_ips)
-        return Sql.insert(lte_cells, 'ENM', technology)
+        return Sql.insert(lte_cells, 'ENM', technology, truncate)

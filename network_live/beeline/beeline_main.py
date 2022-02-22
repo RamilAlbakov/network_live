@@ -2,6 +2,7 @@
 
 
 from network_live.beeline.huawei_parser import parse_lte_huawei
+from network_live.beeline.lte_nokia_parser import parse_lte_nokia
 from network_live.download_logs import download_lte_logs
 from network_live.sql import Sql
 
@@ -22,3 +23,9 @@ def beeline_main(technology):
         download_lte_logs('beeline_huawei')
         lte_cells = parse_lte_huawei(logs_path)
         return Sql.insert(lte_cells, 'Beeline Huawei', 'LTE')
+    elif technology == 'LTE Nokia':
+        download_lte_logs('beeline_nokia_moran')
+        lte_cells = parse_lte_nokia(logs_path)
+        download_lte_logs('beeline_nokia_mocn')
+        lte_cells += parse_lte_nokia(logs_path)
+        return Sql.insert(lte_cells, 'Beeline Nokia', 'LTE')
