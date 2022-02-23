@@ -25,6 +25,9 @@ def main():
     beeline_lte_nokia_result = beeline_main('LTE Nokia')
     update_results.append(beeline_lte_nokia_result)
 
+    enm_wcdma_result = enm_main('WCDMA', truncate=True)
+    update_results.append(enm_wcdma_result)
+
     for update_result in update_results:
         print(update_result)
 

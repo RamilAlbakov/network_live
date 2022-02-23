@@ -1,0 +1,72 @@
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=AKTB_RNC_1,MeContext=AKTB_RNC_1,ManagedElement=1,RncFunction=1
+rncId : 2002
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=AKTA_RNC_1,MeContext=AKTA_RNC_1,ManagedElement=1,RncFunction=1
+rncId : 2123
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ATYR_RNC_1,MeContext=ATYR_RNC_1,ManagedElement=1,RncFunction=1
+rncId : 1953
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ORAL_RNC_1,MeContext=ORAL_RNC_1,ManagedElement=1,RncFunction=1
+rncId : 2004
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=TALD_RNC_2,MeContext=TALD_RNC_2,ManagedElement=1,RncFunction=1
+rncId : 1212
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ALMA_RNC_9,MeContext=ALMA_RNC_9,ManagedElement=1,RncFunction=1
+rncId : 1210
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ALMA_RNC_5,MeContext=ALMA_RNC_5,ManagedElement=1,RncFunction=1
+rncId : 1207
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=KARG_RNC_2,MeContext=KARG_RNC_2,ManagedElement=1,RncFunction=1
+rncId : 2302
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ASTA_RNC_3,MeContext=ASTA_RNC_3,ManagedElement=1,RncFunction=1
+rncId : 1113
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ASTA_RNC_6,MeContext=ASTA_RNC_6,ManagedElement=1,RncFunction=1
+rncId : 1106
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ASTA_RNC_2,MeContext=ASTA_RNC_2,ManagedElement=1,RncFunction=1
+rncId : 1102
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ASTA_RNC_4,MeContext=ASTA_RNC_4,ManagedElement=1,RncFunction=1
+rncId : 1114
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ALMA_RNC_3,MeContext=ALMA_RNC_3,ManagedElement=1,RncFunction=1
+rncId : 1211
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ASTA_RNC_5,MeContext=ASTA_RNC_5,ManagedElement=1,RncFunction=1
+rncId : 1105
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ALMA_RNC_2,MeContext=ALMA_RNC_2,ManagedElement=1,RncFunction=1
+rncId : 1201
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ALMA_RNC_1,MeContext=ALMA_RNC_1,ManagedElement=1,RncFunction=1
+rncId : 1206
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ALMA_RNC_4,MeContext=ALMA_RNC_4,ManagedElement=1,RncFunction=1
+rncId : 1200
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ALMA_RNC_6,MeContext=ALMA_RNC_6,ManagedElement=1,RncFunction=1
+rncId : 1205
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ALMA_RNC_8,MeContext=ALMA_RNC_8,ManagedElement=1,RncFunction=1
+rncId : 1209
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=KZYL_RNC_1,MeContext=KZYL_RNC_1,ManagedElement=1,RncFunction=1
+rncId : 1505
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=TARA_RNC_1,MeContext=TARA_RNC_1,ManagedElement=1,RncFunction=1
+rncId : 1511
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=KARG_RNC_3,MeContext=KARG_RNC_3,ManagedElement=1,RncFunction=1
+rncId : 2303
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=KARG_RNC_1,MeContext=KARG_RNC_1,ManagedElement=1,RncFunction=1
+rncId : 2301
+
+
+23 instance(s)
+

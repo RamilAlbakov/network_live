@@ -19,6 +19,24 @@ address : 10.202.39.205/28
 FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=LTE_Almaty,MeContext=ERBS_00074_KRSBGRALM_KB,ManagedElement=ERBS_00074_KRSBGRALM_KB,Transport=1,Router=OAM-2,InterfaceIPv4=OAM-2,AddressIPv4=OAM-2
 address : 10.198.39.201/28
 
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ASTA_RNC_4,MeContext=11707KOKBATYGAY,ManagedElement=11707KOKBATYGAY,Transport=1,Router=Abis,InterfaceIPv4=Abis,AddressIPv4=Abis
+address : 10.208.25.229/28
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ASTA_RNC_4,MeContext=11707KOKBATYGAY,ManagedElement=11707KOKBATYGAY,Transport=1,Router=OAM,InterfaceIPv4=OAM,AddressIPv4=OAM
+address : 10.204.25.234/28
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=LTE_Aktau,MeContext=ERBS_51105_XTURANBANK_K,ManagedElement=ERBS_51105_XTURANBANK_K,Transport=1,Router=S1_Common,InterfaceIPv4=S1_Kcell,AddressIPv4=S1_Kcell
+address : 10.195.64.52/28
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=LTE_Aktau,MeContext=ERBS_51105_XTURANBANK_K,ManagedElement=ERBS_51105_XTURANBANK_K,Transport=1,Router=OAM,InterfaceIPv4=OAM,AddressIPv4=OAM
+address : 10.207.64.52/28
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ALMA_RNC_4,MeContext=00887AIRKULZH,ManagedElement=00887AIRKULZH,Transport=1,Router=Iub,InterfaceIPv4=Iub,AddressIPv4=Iub
+address : 10.202.42.47/27
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ALMA_RNC_4,MeContext=00887AIRKULZH,ManagedElement=00887AIRKULZH,Transport=1,Router=OAM,InterfaceIPv4=OAM,AddressIPv4=OAM
+address : 10.206.42.47/27
+
 
 7822 instance(s)
 

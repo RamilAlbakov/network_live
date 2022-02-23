@@ -1,0 +1,12 @@
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ASTA_RNC_4,MeContext=11707KOKBATYGAY,ManagedElement=11707KOKBATYGAY,NodeBFunction=1,Iub=1
+rbsId : 11707
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=LTE_Aktau,MeContext=ERBS_51105_XTURANBANK_K,ManagedElement=ERBS_51105_XTURANBANK_K,NodeBFunction=1,Iub=1
+rbsId : 51105
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ALMA_RNC_4,MeContext=00887AIRKULZH,ManagedElement=00887AIRKULZH,NodeBFunction=1,Iub=1
+rbsId : 887
+
+
+3571 instance(s)
+

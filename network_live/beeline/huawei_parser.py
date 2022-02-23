@@ -95,6 +95,7 @@ def parse_enodeb_id(root):
     Returns:
         string
     """
+    enodeb_id = ''
     for element in root.iter(make_tag('eNodeBFunction')):
         enodeb_id = parse_tag_text('eNodeBId', element)
     return enodeb_id
@@ -110,6 +111,7 @@ def parse_site_name(root):
     Returns:
         string
     """
+    site_name = ''
     for element in root.iter(make_tag('NE')):
         site_name = parse_tag_text('NENAME', element)
     return site_name

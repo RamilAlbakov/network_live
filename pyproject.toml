@@ -22,6 +22,7 @@ update-enm-lte = "network_live.scripts.update_enm_lte:main"
 update-tele2-lte = "network_live.scripts.update_tele2_lte:main"
 update-beeline-huawei = "network_live.scripts.update_beeline_huawei:main"
 update-nokia-lte = "network_live.scripts.update_beeline_nokia_lte:main"
+update-enm-wcdma = "network_live.scripts.update_enm_wcdma:main"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -44,9 +44,9 @@ class Enm(object):
         'wcdma_cells': 'cmedit get * UtranCell.({params})'.format(
             params=','.join(utrancell_params),
         ),
-        'rnc_id': 'cmedit get * RncFunction.(rncId)',
+        'rnc_ids': 'cmedit get * RncFunction.(rncId)',
         'site_names': 'cmedit get * Iub.(rbsId)',
-        'iub_link': 'cmedit get *RNC* IubLink.(rbsId)',
+        'iublink': 'cmedit get *RNC* IubLink.(rbsId)',
         'dus_ip': 'cmedit get * Ip.(nodeIpAddress)',
         'bbu_ip': 'cmedit get * AddressIPv4.(address)',
     }

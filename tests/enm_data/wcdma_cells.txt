@@ -1,0 +1,31 @@
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=ASTA_RNC_4,MeContext=ASTA_RNC_4,ManagedElement=1,RncFunction=1,UtranCell=UKOBAT6
+UtranCellId : UKOBAT6
+iubLinkRef : SubNetwork=ONRM_ROOT_MO,SubNetwork=ASTA_RNC_4,MeContext=ASTA_RNC_4,ManagedElement=1,RncFunction=1,IubLink=Iub_11707KOKBATYGAY
+localCellId : 27076
+locationAreaRef : SubNetwork=ONRM_ROOT_MO,SubNetwork=ASTA_RNC_4,MeContext=ASTA_RNC_4,ManagedElement=1,RncFunction=1,LocationArea=47173
+maximumTransmissionPower : 437
+mocnCellProfileRef : 
+primaryCpichPower : 340
+primaryScramblingCode : 481
+routingAreaRef : SubNetwork=ONRM_ROOT_MO,SubNetwork=ASTA_RNC_4,MeContext=ASTA_RNC_4,ManagedElement=1,RncFunction=1,LocationArea=47173,RoutingArea=1
+serviceAreaRef : SubNetwork=ONRM_ROOT_MO,SubNetwork=ASTA_RNC_4,MeContext=ASTA_RNC_4,ManagedElement=1,RncFunction=1,LocationArea=47173,ServiceArea=27076
+uarfcnDl : 10587
+uraRef : [SubNetwork=ONRM_ROOT_MO,SubNetwork=ASTA_RNC_4,MeContext=ASTA_RNC_4,ManagedElement=1,RncFunction=1,Ura=11142]
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=AKTA_RNC_1,MeContext=AKTA_RNC_1,ManagedElement=1,RncFunction=1,UtranCell=UTURAN7
+UtranCellId : UTURAN7
+iubLinkRef : SubNetwork=ONRM_ROOT_MO,SubNetwork=AKTA_RNC_1,MeContext=AKTA_RNC_1,ManagedElement=1,RncFunction=1,IubLink=Iub_51105XTURANBANK_UTURAN
+localCellId : 51117
+locationAreaRef : SubNetwork=ONRM_ROOT_MO,SubNetwork=AKTA_RNC_1,MeContext=AKTA_RNC_1,ManagedElement=1,RncFunction=1,LocationArea=2126
+maximumTransmissionPower : 445
+mocnCellProfileRef : 
+primaryCpichPower : 330
+primaryScramblingCode : 111
+routingAreaRef : SubNetwork=ONRM_ROOT_MO,SubNetwork=AKTA_RNC_1,MeContext=AKTA_RNC_1,ManagedElement=1,RncFunction=1,LocationArea=2126,RoutingArea=1
+serviceAreaRef : SubNetwork=ONRM_ROOT_MO,SubNetwork=AKTA_RNC_1,MeContext=AKTA_RNC_1,ManagedElement=1,RncFunction=1,LocationArea=2126,ServiceArea=51117
+uarfcnDl : 10587
+uraRef : [SubNetwork=ONRM_ROOT_MO,SubNetwork=AKTA_RNC_1,MeContext=AKTA_RNC_1,ManagedElement=1,RncFunction=1,Ura=21230]
+
+
+20514 instance(s)
+
