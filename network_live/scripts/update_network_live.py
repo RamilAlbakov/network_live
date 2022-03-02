@@ -4,6 +4,7 @@
 from dotenv import load_dotenv
 from network_live.beeline.beeline_main import beeline_main
 from network_live.enm.enm_main import enm_main
+from network_live.oss.oss_main import oss_main
 from network_live.tele2.tele2_main import tele2_main
 
 load_dotenv('.env')
@@ -27,6 +28,9 @@ def main():
 
     enm_wcdma_result = enm_main('WCDMA', truncate=True)
     update_results.append(enm_wcdma_result)
+
+    oss_wcdma_result = oss_main('WCDMA')
+    update_results.append(oss_wcdma_result)
 
     for update_result in update_results:
         print(update_result)
