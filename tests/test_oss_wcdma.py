@@ -14,7 +14,7 @@ def test_parse_rbs_data():
     sites = parse_rbs_data(root)
 
     assert sites['41001']['site_name'] == '41001BCUKGU'
-    assert sites['42523']['ip_address'] == '10.13.203.173/27'
+    assert sites['42523']['ip_address'] == '10.13.203.173'
     assert sites['41005']['ip_address'] == '10.206.98.15'
     assert sites['41006']['site_name'] == '41006USHYMADAL'
 

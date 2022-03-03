@@ -32,6 +32,9 @@ def main():
     oss_wcdma_result = oss_main('WCDMA')
     update_results.append(oss_wcdma_result)
 
+    tele2_wcdma_result = tele2_main('WCDMA')
+    update_results.append(tele2_wcdma_result)
+
     for update_result in update_results:
         print(update_result)
 

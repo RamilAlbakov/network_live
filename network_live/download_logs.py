@@ -69,7 +69,7 @@ def unzip_log(zipfile_path):
             zip_obj.extractall(zipfile_dir)
 
 
-def download_lte_logs(operator):
+def download_ftp_logs(operator):
     """
     Download lte cell data from ftp for required operator and vendor.
 
@@ -86,7 +86,10 @@ def download_lte_logs(operator):
     delete_old_logs(logs_path)
 
     ftp_paths = {
-        'tele2': '/reporter/tele2/mocn/{date}/Config_result_data_{date}.zip'.format(date=date),
+        'tele2_lte': '/reporter/tele2/mocn/{date}/Config_result_data_{date}.zip'.format(date=date),
+        'tele2_wcdma': '/reporter/tele2/250plus/{date}/UNBI_Conf_Export_XML_RT_{date}.zip'.format(
+            date=date,
+        ),
         'beeline_huawei': '/reporter/beeline/cm/LTE/{date}.zip'.format(date=date),
         'beeline_nokia_moran': '/reporter/beeline/cm/Nokia/LTE/{date}.zip'.format(date=date),
         'beeline_nokia_mocn': '/reporter/beeline/cm/Nokia/LTE_MOCN/{date}.zip'.format(date=date),
