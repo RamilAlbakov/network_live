@@ -69,12 +69,46 @@ def unzip_log(zipfile_path):
             zip_obj.extractall(zipfile_dir)
 
 
-def download_ftp_logs(operator):
+def download_bee250_huawei_xml(local_path):
+    """
+    Download Beeline Huawei xml file for 250 project.
+
+    Args:
+        local_path: string
+    """
+    host = os.getenv('FTP_HOST')
+    login = os.getenv('FTP_LOGIN')
+    password = os.getenv('FTP_PASSWORD')
+    date = Date.get_date('beeline')
+    remote_path = '/reporter/beeline/250/CM/{date}'.format(date=date)
+    delete_old_logs(local_path)
+
+    with paramiko.Transport((host)) as transport:
+        transport.connect(username=login, password=password)
+        with paramiko.SFTPClient.from_transport(transport) as sftp:
+            file_list = sftp.listdir(remote_path)
+            for log in file_list:
+                if 'NBIExport_XML_RT' in log:
+                    remote_log_path = '{remote_path}/{log}'.format(
+                        remote_path=remote_path,
+                        log=log,
+                    )
+                    local_log_path = '{local_path}/{log}'.format(
+                        local_path=local_path,
+                        log=log,
+                    )
+                    sftp.get(remote_log_path, local_log_path)
+                    unzip_log(local_log_path)
+                    os.remove(local_log_path)
+
+
+def download_ftp_logs(operator, is_unzip=True):
     """
     Download lte cell data from ftp for required operator and vendor.
 
     Args:
         operator: string
+        is_unzip: bool
     """
     if 'tele2' in operator:
         logs_path = 'logs/tele2'
@@ -84,6 +118,7 @@ def download_ftp_logs(operator):
         date = Date.get_date('beeline')
 
     delete_old_logs(logs_path)
+    bee250_path = '/reporter/beeline/250/CM'
 
     ftp_paths = {
         'tele2_lte': '/reporter/tele2/mocn/{date}/Config_result_data_{date}.zip'.format(date=date),
@@ -94,6 +129,10 @@ def download_ftp_logs(operator):
         'beeline_nokia_moran': '/reporter/beeline/cm/Nokia/LTE/{date}.zip'.format(date=date),
         'beeline_nokia_mocn': '/reporter/beeline/cm/Nokia/LTE_MOCN/{date}.zip'.format(date=date),
         'beeline_nokia_wcdma': '/reporter/beeline/cm/Nokia/GU/{date}.zip'.format(date=date),
+        'beeline_nokia_250': '{bee250_path}/{date}/UMTS_531603_Shymkent_N_{date}.xml'.format(
+            bee250_path=bee250_path,
+            date=date,
+        ),
     }
 
     remote_path = ftp_paths[operator]
@@ -103,8 +142,9 @@ def download_ftp_logs(operator):
     )
 
     download_ftp_data(remote_path, local_path, 'ftp_server')
-    unzip_log(local_path)
-    os.remove(local_path)
+    if is_unzip:
+        unzip_log(local_path)
+        os.remove(local_path)
 
 
 def download_oss_logs(technology):

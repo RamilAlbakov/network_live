@@ -59,12 +59,13 @@ def parse_moi_parameters(root, attribute_type, needed_params):
     return moi_parameters
 
 
-def parse_wcdma_cells(xml_path):
+def parse_huawei_wcdma_cells(xml_path, operator):
     """
     Parse wcdma cells data.
 
     Args:
         xml_path: string
+        operator: string
 
     Returns:
         list of dicts
@@ -94,7 +95,7 @@ def parse_wcdma_cells(xml_path):
 
     for cell_id in cell_ids:
         cell = {
-            'operator': 'Tele2',
+            'operator': operator,
             'rnc_id': ucell_data[cell_id]['LOGICRNCID'],
             'rnc_name': rnc_name,
             'site_name': ucell_data[cell_id]['NODEBNAME'],

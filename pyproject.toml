@@ -26,6 +26,7 @@ update-beeline-huawei = "network_live.scripts.update_beeline_huawei:main"
 update-nokia-lte = "network_live.scripts.update_beeline_nokia_lte:main"
 update-nokia-wcdma = "network_live.scripts.update_beeline_nokia_wcdma:main"
 update-oss-wcdma = "network_live.scripts.update_oss_wcdma:main"
+update-huawei-wcdma = "network_live.scripts.update_beeline_huawei_wcdma:main"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

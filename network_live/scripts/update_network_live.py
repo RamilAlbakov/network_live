@@ -35,6 +35,12 @@ def main():
     tele2_wcdma_result = tele2_main('WCDMA')
     update_results.append(tele2_wcdma_result)
 
+    beeline_wcdma_nokia_result = beeline_main('WCDMA Nokia')
+    update_results.append(beeline_wcdma_nokia_result)
+
+    beeline_wcdma_huawei_result = beeline_main('WCDMA Huawei')
+    update_results.append(beeline_wcdma_huawei_result)
+
     for update_result in update_results:
         print(update_result)
 
