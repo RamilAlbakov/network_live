@@ -1,0 +1,17 @@
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=AXE,MeContext=AKTA_B1,ManagedElement=AKTA_B1,BscFunction=1,BscM=1,GeranCellM=1,GeranCell=RD4H553
+bcc : 5
+bcchNo : 8
+cgi : 401-02-2123-20793
+ncc : 1
+state : ACTIVE
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=AXE,MeContext=AKTA_B1,ManagedElement=AKTA_B1,BscFunction=1,BscM=1,GeranCellM=1,GeranCell=RD4H551
+bcc : 1
+bcchNo : 59
+cgi : 401-02-2123-20791
+ncc : 6
+state : ACTIVE
+
+
+679 instance(s)
+

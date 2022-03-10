@@ -67,12 +67,14 @@ def parse_rbs_id(me_context_tag):
     return rbs_id
 
 
-def parse_rbs_data(root):
+def parse_rbs_data(root, enm_sites, enm_ips):
     """
     Parse rbsId and ip address for sites whick configured on oss ass Wrat nodes.
 
     Args:
         root: xml root object
+        enm_sites: dict
+        enm_ips: dict
 
     Returns:
         dict
@@ -88,6 +90,14 @@ def parse_rbs_data(root):
             'site_name': me_tag_id,
             'ip_address': ip_address,
         }
+
+    for site_name, enm_rbs_id in enm_sites.items():
+        ip_address = enm_ips[site_name]
+        rbs_data[enm_rbs_id] = {
+            'site_name': site_name,
+            'ip_address': ip_address,
+        }
+
     return rbs_data
 
 
@@ -192,18 +202,20 @@ def parse_iub_link(utran_cell_tag):
     return iub_link_ref.split('=')[-1]
 
 
-def parse_wcdma_cells(xml_path):
+def parse_wcdma_cells(xml_path, enm_sites, enm_ips):
     """
     Parse all necessary wcdma cell parameters.
 
     Args:
         xml_path: string
+        enm_sites: dict
+        enm_ips: dict
 
     Returns:
         list of dict
     """
     root = ElementTree.parse(xml_path).getroot()
-    sites = parse_rbs_data(root)
+    sites = parse_rbs_data(root, enm_sites, enm_ips)
     rbs_ids = parse_iublink_data(root)
 
     wcdma_cells = []

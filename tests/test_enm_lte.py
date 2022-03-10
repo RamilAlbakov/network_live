@@ -3,18 +3,16 @@
 
 from network_live.enm.lte_parser import parse_lte_cells
 from network_live.enm.parser_utils import parse_ips, parse_node_parameter
+from tests.read_enm_data import read_enm_txt
 
 
 def test_parse_lte_cells():
     """Test enm lte cells parser."""
-    with open('tests/enm_data/lte_cells.txt') as lte_cells_obj:
-        enm_lte_cells = lte_cells_obj.read().split('\n')
-    with open('tests/enm_data/enodeb_id.txt') as enodeb_id_obj:
-        enm_enodeb_ids = enodeb_id_obj.read().split('\n')
-        enodeb_ids = parse_node_parameter(enm_enodeb_ids, 'MeContext')
-    with open('tests/enm_data/bbu_ip.txt') as bbu_ip_obj:
-        enm_bbu_ips = bbu_ip_obj.read().split('\n')
-        node_ips = parse_ips(enm_bbu_ips)
+    enm_lte_cells, enm_enodeb_ids, enm_bbu_ips = read_enm_txt(
+        ['lte_cells', 'enodeb_id', 'bbu_ip']
+    )
+    enodeb_ids = parse_node_parameter(enm_enodeb_ids, 'MeContext')
+    node_ips = parse_ips(enm_bbu_ips)
 
     cell1, cell2, cell3 = parse_lte_cells(enm_lte_cells, enodeb_ids, node_ips)
 

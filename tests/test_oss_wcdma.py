@@ -11,7 +11,7 @@ root = ElementTree.parse(xml_path).getroot()
 
 def test_parse_rbs_data():
     """Test oss parse_wcdma_sites function."""
-    sites = parse_rbs_data(root)
+    sites = parse_rbs_data(root, {}, {})
 
     assert sites['41001']['site_name'] == '41001BCUKGU'
     assert sites['42523']['ip_address'] == '10.13.203.173'
@@ -29,7 +29,7 @@ def test_parse_iublink_data():
 
 def test_parse_wcdma_cells():
     """Test oss parse_wcdma_cells function."""
-    wcdma_cells = parse_wcdma_cells(xml_path)
+    wcdma_cells = parse_wcdma_cells(xml_path, {}, {})
 
     cell = list(filter(
         lambda utrancell: utrancell['UtranCellId'] == '2UKGU2',

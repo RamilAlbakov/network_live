@@ -12,37 +12,35 @@ load_dotenv('.env')
 
 def main():
     """Update network live db."""
-    update_results = []
-
     enm_lte_result = enm_main('LTE', truncate=True)
-    update_results.append(enm_lte_result)
+    print(enm_lte_result)
 
     tele2_lte_result = tele2_main('LTE')
-    update_results.append(tele2_lte_result)
+    print(tele2_lte_result)
 
     beeline_lte_huawei_result = beeline_main('LTE Huawei')
-    update_results.append(beeline_lte_huawei_result)
+    print(beeline_lte_huawei_result)
 
     beeline_lte_nokia_result = beeline_main('LTE Nokia')
-    update_results.append(beeline_lte_nokia_result)
+    print(beeline_lte_nokia_result)
 
     enm_wcdma_result = enm_main('WCDMA', truncate=True)
-    update_results.append(enm_wcdma_result)
+    print(enm_wcdma_result)
 
     oss_wcdma_result = oss_main('WCDMA')
-    update_results.append(oss_wcdma_result)
+    print(oss_wcdma_result)
 
     tele2_wcdma_result = tele2_main('WCDMA')
-    update_results.append(tele2_wcdma_result)
+    print(tele2_wcdma_result)
 
     beeline_wcdma_nokia_result = beeline_main('WCDMA Nokia')
-    update_results.append(beeline_wcdma_nokia_result)
+    print(beeline_wcdma_nokia_result)
 
     beeline_wcdma_huawei_result = beeline_main('WCDMA Huawei')
-    update_results.append(beeline_wcdma_huawei_result)
+    print(beeline_wcdma_huawei_result)
 
-    for update_result in update_results:
-        print(update_result)
+    enm_gsm_result = enm_main('GSM', truncate=True)
+    print(enm_gsm_result)
 
 
 if __name__ == '__main__':

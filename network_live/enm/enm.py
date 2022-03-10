@@ -36,6 +36,14 @@ class Enm(object):
         'mocnCellProfileRef',
     ]
 
+    gsmcell_params = [
+        'bcc',
+        'ncc',
+        'cgi',
+        'bcchNo',
+        'state',
+    ]
+
     cli_commands = {
         'lte_cells': 'cmedit get * EutranCellFdd.({params})'.format(
             params=','.join(eutrancellfdd_params),
@@ -49,6 +57,12 @@ class Enm(object):
         'iublink': 'cmedit get *RNC* IubLink.(rbsId)',
         'dus_ip': 'cmedit get * Ip.(nodeIpAddress)',
         'bbu_ip': 'cmedit get * AddressIPv4.(address)',
+        'gsm_cells': 'cmedit get * GeranCell.({params})'.format(
+            params=','.join(gsmcell_params),
+        ),
+        'channel_group': 'cmedit get * ChannelGroup.(channelGroupId==1, hsn, maio, dchNo)',
+        'bsc_id': 'cmedit get * Bsc.(bscId)',
+        'gsm_sites': ' cmedit get * G31Tg.(rSite,sector)',
     }
 
     @classmethod

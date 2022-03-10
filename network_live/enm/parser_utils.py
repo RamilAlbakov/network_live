@@ -20,6 +20,8 @@ def parse_mo_value(fdn, mo_type):
         'EUtranCellFDD': 'EUtranCellFDD=.*',
         'UtranCell': 'UtranCell=.*',
         'IubLink': 'IubLink=.*',
+        'GeranCell': 'GeranCell=.*',
+        'ChannelGroupCell': 'GeranCell=[^,]*',
     }
     mo_value_index = -1
 

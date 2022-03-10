@@ -126,6 +126,7 @@ def download_ftp_logs(operator, is_unzip=True):
             date=date,
         ),
         'beeline_huawei': '/reporter/beeline/cm/LTE/{date}.zip'.format(date=date),
+        'beeline_huawei_mocn': '/reporter/beeline/mocn/cm/LTE/{date}.zip'.format(date=date),
         'beeline_nokia_moran': '/reporter/beeline/cm/Nokia/LTE/{date}.zip'.format(date=date),
         'beeline_nokia_mocn': '/reporter/beeline/cm/Nokia/LTE_MOCN/{date}.zip'.format(date=date),
         'beeline_nokia_wcdma': '/reporter/beeline/cm/Nokia/GU/{date}.zip'.format(date=date),

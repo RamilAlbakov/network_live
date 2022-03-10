@@ -53,19 +53,23 @@ def parse_qrxlevmin(root):
     return qrxlevmin_data
 
 
-def parse_tac(root):
+def parse_tac(root, sharing):
     """
     Parse Kcell tac.
 
     Args:
         root: root object
+        sharing: string
 
     Returns:
         string
     """
     for element in root.iter(make_tag('CnOperatorTa')):
-        tracking_area_id = parse_tag_text('TrackingAreaId', element)
-        if tracking_area_id == '1':
+        if sharing == 'moran':
+            tracking_area_id = parse_tag_text('TrackingAreaId', element)
+            if tracking_area_id == '1':
+                return parse_tag_text('Tac', element)
+        else:
             return parse_tag_text('Tac', element)
 
 
@@ -117,24 +121,27 @@ def parse_site_name(root):
     return site_name
 
 
-def parse_huawei_xml(xml_path):
+def parse_huawei_xml(xml_path, sharing):
     """
     Parse xml file.
 
     Args:
         xml_path: string
+        sharing: string
 
     Returns:
         dict
     """
     eci_factor = 256
-    min_kcell_cell_id = 100
-    max_kcell_cell_id = 130
     root = ElementTree.parse(xml_path).getroot()
 
     qrxlevmin_data = parse_qrxlevmin(root)
     enodeb_id = parse_enodeb_id(root)
     eutrancells = []
+    moran_cellid_range = list(range(100, 130))
+    mocn_cellid_range = list(range(0, 100))
+
+    cellid_range = moran_cellid_range if sharing == 'moran' else mocn_cellid_range
 
     for element in root.iter(make_tag('Cell')):
         cell = {
@@ -146,7 +153,7 @@ def parse_huawei_xml(xml_path):
         }
         cell_id = parse_tag_text('LocalCellId', element)
 
-        if int(cell_id) in list(range(min_kcell_cell_id, max_kcell_cell_id)):
+        if int(cell_id) in cellid_range:
             cell['cell_name'] = parse_tag_text('CellName', element)
             cell['cellId'] = cell_id
             cell['earfcndl'] = parse_tag_text('DlEarfcn', element)
@@ -154,7 +161,7 @@ def parse_huawei_xml(xml_path):
             cell['rachRootSequence'] = parse_tag_text('RootSequenceIdx', element)
             cell['physicalLayerCellIdGroup'] = parse_tag_text('PhyCellId', element)
             cell['qRxLevMin'] = qrxlevmin_data[cell_id]
-            cell['tac'] = parse_tac(root)
+            cell['tac'] = parse_tac(root, sharing)
             cell['ip_address'] = parse_ip(root)
             cell['enodeb_id'] = enodeb_id
             cell['site_name'] = parse_site_name(root)
@@ -165,12 +172,13 @@ def parse_huawei_xml(xml_path):
     return eutrancells
 
 
-def parse_lte_huawei(logs_path):
+def parse_lte_huawei(logs_path, sharing):
     """
     Parse Beeline Huawei xml logs.
 
     Args:
         logs_path: string
+        sharing: string
 
     Returns:
         list of dicts
@@ -178,6 +186,6 @@ def parse_lte_huawei(logs_path):
     cell_data = []
     for log in os.listdir(logs_path):
         xml_path = '{logs_path}/{log}'.format(logs_path=logs_path, log=log)
-        cell_data += parse_huawei_xml(xml_path)
+        cell_data += parse_huawei_xml(xml_path, sharing)
 
     return cell_data

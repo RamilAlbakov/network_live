@@ -24,7 +24,9 @@ def beeline_main(technology):
 
     if technology == 'LTE Huawei':
         download_ftp_logs('beeline_huawei')
-        lte_cells = parse_lte_huawei(logs_path)
+        lte_cells = parse_lte_huawei(logs_path, 'moran')
+        download_ftp_logs('beeline_huawei_mocn')
+        lte_cells += parse_lte_huawei(logs_path, 'mocn')
         return Sql.insert(lte_cells, 'Beeline Huawei', 'LTE')
     elif technology == 'LTE Nokia':
         download_ftp_logs('beeline_nokia_moran')

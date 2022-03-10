@@ -55,6 +55,29 @@ wcdma_insert_sql = """
     )
 """
 
+gsm_insert_sql = """
+    INSERT
+        INTO gsmcells2
+    VALUES (
+        :operator,
+        :bsc_id,
+        :bsc_name,
+        :site_name,
+        :cell_name,
+        :bcc,
+        :ncc,
+        :lac,
+        :cell_id,
+        :bcchNo,
+        :hsn,
+        :maio,
+        :tch_freqs,
+        :state,
+        :vendor,
+        :insert_date
+    )
+"""
+
 
 class Sql(object):
     """Sql data to communicate with network live db."""
@@ -62,11 +85,13 @@ class Sql(object):
     insert_sqls = {
         'LTE': lte_insert_sql,
         'WCDMA': wcdma_insert_sql,
+        'GSM': gsm_insert_sql,
     }
 
     insert_tables = {
         'LTE': 'ltecells2',
         'WCDMA': 'wcdmacells2',
+        'GSM': 'gsmcells2',
     }
 
     @classmethod
@@ -103,5 +128,7 @@ class Sql(object):
                     cursor.execute(cls.insert_sqls[technology], cell)
                 connection.commit()
                 return '{technology} {oss} Success'.format(technology=technology, oss=oss)
-        except cx_Oracle.Error:
+        except cx_Oracle.Error as err:
+            err_obj, = err.args
+            print(err_obj.message)
             return '{technology} {oss} Fail'.format(technology=technology, oss=oss)

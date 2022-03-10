@@ -1,0 +1,15 @@
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=AXE,MeContext=AKTA_B1,ManagedElement=AKTA_B1,BscFunction=1,BscM=1,GeranCellM=1,GeranCell=RD4H553,ChannelGroup=1
+channelGroupId : 1
+dchNo : [3, 57, 64]
+hsn : 54
+maio : [0, 1, 2]
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=AXE,MeContext=AKTA_B1,ManagedElement=AKTA_B1,BscFunction=1,BscM=1,GeranCellM=1,GeranCell=RD4H551,ChannelGroup=1
+channelGroupId : 1
+dchNo : [1, 43, 46]
+hsn : 20
+maio : [0, 1, 2]
+
+
+1358 instance(s)
+

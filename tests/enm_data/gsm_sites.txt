@@ -1,0 +1,11 @@
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=AXE,MeContext=AKTA_B1,ManagedElement=AKTA_B1,BscFunction=1,BscM=1,Bts=1,G31Tg=244
+rSite : 51029DISTR4H55
+sector : RD4H553
+
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=AXE,MeContext=AKTA_B1,ManagedElement=AKTA_B1,BscFunction=1,BscM=1,Bts=1,G31Tg=242
+rSite : 51029DISTR4H55
+sector : RD4H551
+
+
+679 instance(s)
+

@@ -1,0 +1,5 @@
+FDN : SubNetwork=ONRM_ROOT_MO,SubNetwork=AXE,MeContext=AKTA_B1,ManagedElement=AKTA_B1,BscFunction=1,BscM=1,Bsc=1
+bscId : 1
+
+
+1 instance(s) 
