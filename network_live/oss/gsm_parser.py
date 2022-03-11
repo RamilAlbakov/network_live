@@ -1,0 +1,102 @@
+"""Parse GSM cell data from OSS txt file."""
+
+from network_live.date import Date
+
+
+def parse_hsn(gsm_params, line):
+    """
+    Parse hsn from line of log content.
+
+    Args:
+        gsm_params: list of strings
+        line: string
+
+    Returns:
+        string
+    """
+    channel_group_index = gsm_params.index('ch_group_1')
+    hsn = line.split(' ')[channel_group_index + 1]
+    return None if hsn == 'NULL' else hsn
+
+
+def parse_hopping_params(param_type, gsm_params, line):
+    """
+    Parse maio from line of log content.
+
+    Args:
+        param_type: string
+        gsm_params: list of strings
+        line: string
+
+    Returns:
+        string
+    """
+    channel_group_index = gsm_params.index('ch_group_1')
+    if param_type == 'maio':
+        start_index = channel_group_index + 2
+        last_index = channel_group_index + 10
+    elif param_type == 'tch':
+        start_index = channel_group_index + 10
+        last_index = channel_group_index + 18
+    hopp_param_list = [
+        hopp for hopp in line.split(' ')[start_index:last_index] if hopp != 'NULL'
+    ]
+    return ', '.join(hopp_param_list)
+
+
+def get_parameter_value(parameter_name, params_list, line):
+    """
+    Get parameter value by parameter name from line of log content.
+
+    Args:
+        parameter_name: string
+        params_list: list
+        line: string
+
+    Returns:
+        string
+    """
+    line_params = line.split(' ')
+    parameter_value = line_params[params_list.index(parameter_name)]
+    return None if parameter_value == 'NULL' else parameter_value
+
+
+def parse_gsm_cells(log_path):
+    """
+    Parse GSM cell data from OSS txt log file.
+
+    Args:
+        log_path: string
+
+    Returns:
+        list of dicts
+    """
+    with open(log_path) as log:
+        log_content = log.readlines()
+
+    gsm_params = log_content[0].split(' ')
+    gsm_cells = []
+    for line in log_content[2:]:
+        cell_name = get_parameter_value('CELL', gsm_params, line)
+        if cell_name is None:
+            continue
+        cell = {
+            'operator': 'Kcell',
+            'bsc_id': None,
+            'bsc_name': get_parameter_value('BSC', gsm_params, line),
+            'site_name': get_parameter_value('SITE', gsm_params, line),
+            'cell_name': cell_name,
+            'bcc': get_parameter_value('bcc', gsm_params, line),
+            'ncc': get_parameter_value('ncc', gsm_params, line),
+            'lac': get_parameter_value('lac', gsm_params, line),
+            'cell_id': get_parameter_value('ci', gsm_params, line),
+            'bcchNo': get_parameter_value('bcchno', gsm_params, line),
+            'hsn': parse_hsn(gsm_params, line),
+            'maio': parse_hopping_params('maio', gsm_params, line),
+            'tch_freqs': parse_hopping_params('tch', gsm_params, line),
+            'state': get_parameter_value('cell_state', gsm_params, line),
+            'vendor': 'ericsson',
+            'insert_date': Date.get_date('network_live'),
+        }
+        gsm_cells.append(cell)
+    return gsm_cells

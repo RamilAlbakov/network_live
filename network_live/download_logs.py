@@ -157,8 +157,9 @@ def download_oss_logs(technology):
     """
     if technology == 'WCDMA':
         remote_path = '/home/anpusr/bcg_filters/export/oss_utrancells.xml'
-        log_name = os.path.basename(remote_path)
-
+    elif technology == 'GSM':
+        remote_path = '/var/opt/ericsson/cnai/data/export/network_live_gsm_export.txt'
+    log_name = os.path.basename(remote_path)
     logs_path = 'logs/oss'
     local_path = '{logs_path}/{log_name}'.format(logs_path=logs_path, log_name=log_name)
     delete_old_logs(logs_path)

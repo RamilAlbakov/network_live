@@ -42,6 +42,9 @@ def main():
     enm_gsm_result = enm_main('GSM', truncate=True)
     print(enm_gsm_result)
 
+    oss_gsm_result = oss_main('GSM')
+    print(oss_gsm_result)
+
 
 if __name__ == '__main__':
     main()
