@@ -128,7 +128,5 @@ class Sql(object):
                     cursor.execute(cls.insert_sqls[technology], cell)
                 connection.commit()
                 return '{technology} {oss} Success'.format(technology=technology, oss=oss)
-        except cx_Oracle.Error as err:
-            err_obj, = err.args
-            print(err_obj.message)
+        except cx_Oracle.Error:
             return '{technology} {oss} Fail'.format(technology=technology, oss=oss)

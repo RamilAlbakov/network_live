@@ -6,44 +6,56 @@ from network_live.beeline.beeline_main import beeline_main
 from network_live.enm.enm_main import enm_main
 from network_live.oss.oss_main import oss_main
 from network_live.tele2.tele2_main import tele2_main
+from network_live.zte.zte_main import zte_main
 
 load_dotenv('.env')
 
 
+def execute_main_func(main_func, technologies, oss_type):
+    """
+    Execute main functions for oss_type.
+
+    Args:
+        main_func: function
+        technologies: list of strings
+        oss_type: string
+
+    Returns:
+        list of strings
+    """
+    execute_results = []
+    for tech in technologies:
+        try:
+            execute_results.append(main_func(tech))
+        except:
+            execute_results.append('{tech} {oss} Fail'.format(tech=tech, oss=oss_type))
+    return execute_results
+
+
 def main():
     """Update network live db."""
-    enm_lte_result = enm_main('LTE', truncate=True)
-    print(enm_lte_result)
+    update_results = []
+    enm_technologies = ['LTE', 'WCDMA', 'GSM']
+    for enm_tech in enm_technologies:
+        try:
+            update_results.append(enm_main(enm_tech, truncate=True))
+        except:
+            update_results.append('{enm_tech} ENM Fail'.format(enm_tech=enm_tech))
 
-    tele2_lte_result = tele2_main('LTE')
-    print(tele2_lte_result)
+    oss_technologies = ['WCDMA', 'GSM']
+    update_results += execute_main_func(oss_main, oss_technologies, 'OSS')
 
-    beeline_lte_huawei_result = beeline_main('LTE Huawei')
-    print(beeline_lte_huawei_result)
+    zte_technologies = ['WCDMA', 'GSM']
+    update_results += execute_main_func(zte_main, zte_technologies, 'ZTE')
 
-    beeline_lte_nokia_result = beeline_main('LTE Nokia')
-    print(beeline_lte_nokia_result)
+    beeline_technologies = ['LTE Huawei', 'LTE Nokia', 'WCDMA Huawei', 'WCDMA Nokia']
+    update_results += execute_main_func(beeline_main, beeline_technologies, 'Beeline')
 
-    enm_wcdma_result = enm_main('WCDMA', truncate=True)
-    print(enm_wcdma_result)
+    tele2_technologies = ['LTE', 'WCDMA', 'GSM']
+    update_results += execute_main_func(tele2_main, tele2_technologies, 'Tele2')
 
-    oss_wcdma_result = oss_main('WCDMA')
-    print(oss_wcdma_result)
-
-    tele2_wcdma_result = tele2_main('WCDMA')
-    print(tele2_wcdma_result)
-
-    beeline_wcdma_nokia_result = beeline_main('WCDMA Nokia')
-    print(beeline_wcdma_nokia_result)
-
-    beeline_wcdma_huawei_result = beeline_main('WCDMA Huawei')
-    print(beeline_wcdma_huawei_result)
-
-    enm_gsm_result = enm_main('GSM', truncate=True)
-    print(enm_gsm_result)
-
-    oss_gsm_result = oss_main('GSM')
-    print(oss_gsm_result)
+    for line in update_results.sort():
+        print(line)
 
 
 if __name__ == '__main__':

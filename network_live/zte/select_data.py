@@ -35,6 +35,28 @@ wcdma_cells_select = """
         NAF_CM.V_CM_UTRAN_CELL_V3
 """
 
+gsm_cells_select = """
+    SELECT
+        GV3_BTS_CELL.BSSFUNCTIONID,
+        GV3_BSC.USERLABEL as bsc_name,
+        GV3_BTS_CELL.SITENAME,
+        GV3_BTS_CELL.USERLABEL,
+        GV3_BTS_CELL.BCC,
+        GV3_BTS_CELL.NCC,
+        GV3_BTS_CELL.LAC,
+        GV3_BTS_CELL.CELLIDENTITY,
+        GV3_BTS_CELL.BCCHFREQUENCY,
+        GV3_BTS_IBTSTRX.GHOPPINGFREQUENCYARFCN
+    FROM
+        EMS_RM4X.GV3_BTS_CELL
+    LEFT JOIN EMS_RM4X.GV3_BSC
+        ON EMS_RM4X.GV3_BTS_CELL.BSSFUNCTIONID=EMS_RM4X.GV3_BSC.BSSFUNCTIONID
+    LEFT JOIN EMS_RM4X.GV3_BTS_IBTSTRX
+        ON EMS_RM4X.GV3_BTS_CELL.OID=EMS_RM4X.GV3_BTS_IBTSTRX.PARENTOID
+    WHERE
+        EMS_RM4X.GV3_BTS_IBTSTRX.TRXID=2
+"""
+
 
 def select_zte_data(mo_type):
     """
@@ -49,6 +71,7 @@ def select_zte_data(mo_type):
     sql_selects = {
         'rnc': rnc_select,
         'wcdma_cell': wcdma_cells_select,
+        'gsm_cell': gsm_cells_select,
     }
 
     zte_dsn = cx_Oracle.makedsn(
@@ -63,7 +86,3 @@ def select_zte_data(mo_type):
     ) as connection:
         cursor = connection.cursor()
         return cursor.execute(sql_selects[mo_type]).fetchall()
-
-
-if __name__ == '__main__':
-    print(select_zte_data('wcdma_cell'))

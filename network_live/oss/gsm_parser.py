@@ -31,13 +31,17 @@ def parse_hopping_params(param_type, gsm_params, line):
     Returns:
         string
     """
+    index_delta = 8
+    maio_start_delta = 2
+    tch_start_delta = 10
+
     channel_group_index = gsm_params.index('ch_group_1')
     if param_type == 'maio':
-        start_index = channel_group_index + 2
-        last_index = channel_group_index + 10
+        start_index = channel_group_index + maio_start_delta
+        last_index = channel_group_index + maio_start_delta + index_delta
     elif param_type == 'tch':
-        start_index = channel_group_index + 10
-        last_index = channel_group_index + 18
+        start_index = channel_group_index + tch_start_delta
+        last_index = channel_group_index + tch_start_delta + index_delta
     hopp_param_list = [
         hopp for hopp in line.split(' ')[start_index:last_index] if hopp != 'NULL'
     ]

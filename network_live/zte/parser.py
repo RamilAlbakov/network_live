@@ -58,3 +58,49 @@ def parse_wcdma_cells(zte_cell_data, zte_rnc_data):
         }
         wcdma_cells.append(cell)
     return wcdma_cells
+
+
+def parse_gsm_cells(zte_gsm_data):
+    """
+    Parse ZTE GSM cell data.
+
+    Args:
+        zte_gsm_data: list of tuples
+
+    Returns:
+        list of dicts
+    """
+    gsm_cells = []
+    for gcell in zte_gsm_data:
+        (
+            bsc_id,
+            bsc_name,
+            site_name,
+            cell_name,
+            bcc,
+            ncc,
+            lac,
+            cell_id,
+            bcch,
+            tch_freqs,
+        ) = gcell
+        cell = {
+            'operator': 'Kcell',
+            'bsc_id': bsc_id,
+            'bsc_name': bsc_name,
+            'site_name': site_name,
+            'cell_name': cell_name,
+            'bcc': bcc,
+            'ncc': ncc,
+            'lac': lac,
+            'cell_id': cell_id,
+            'bcchNo': bcch,
+            'hsn': None,
+            'maio': None,
+            'tch_freqs': tch_freqs,
+            'state': None,
+            'vendor': 'zte',
+            'insert_date': Date.get_date('network_live'),
+        }
+        gsm_cells.append(cell)
+    return gsm_cells

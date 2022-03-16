@@ -138,8 +138,11 @@ def parse_huawei_xml(xml_path, sharing):
     qrxlevmin_data = parse_qrxlevmin(root)
     enodeb_id = parse_enodeb_id(root)
     eutrancells = []
-    moran_cellid_range = list(range(100, 130))
-    mocn_cellid_range = list(range(0, 100))
+    moran_min_cell_id, moran_max_cell_id = (100, 130)
+    moran_cellid_range = list(range(moran_min_cell_id, moran_max_cell_id))
+
+    mocn_min_cell_id, mocn_max_cell_id = (0, 100)
+    mocn_cellid_range = list(range(mocn_min_cell_id, mocn_max_cell_id))
 
     cellid_range = moran_cellid_range if sharing == 'moran' else mocn_cellid_range
 

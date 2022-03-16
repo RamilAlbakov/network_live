@@ -29,4 +29,4 @@ class Date(object):
         if format_key == 'network_live':
             return datetime.now().strftime(date_format)
 
-        return (now - timedelta(days=2)).strftime(date_format)
+        return (now - timedelta(days=1)).strftime(date_format)

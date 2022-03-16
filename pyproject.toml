@@ -31,6 +31,7 @@ update-oss-wcdma = "network_live.scripts.update_oss_wcdma:main"
 update-oss-gsm = "network_live.scripts.update_oss_gsm:main"
 update-huawei-wcdma = "network_live.scripts.update_beeline_huawei_wcdma:main"
 update-zte-wcdma = "network_live.scripts.update_zte_wcdma:main"
+update-zte-gsm = "network_live.scripts.update_zte_gsm:main"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
