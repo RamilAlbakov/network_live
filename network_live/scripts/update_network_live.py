@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from network_live.beeline.beeline_main import beeline_main
 from network_live.enm.enm_main import enm_main
 from network_live.oss.oss_main import oss_main
+from network_live.send_mail import send_email
 from network_live.tele2.tele2_main import tele2_main
 from network_live.zte.zte_main import zte_main
 
@@ -26,9 +27,11 @@ def execute_main_func(main_func, technologies, oss_type):
     execute_results = []
     for tech in technologies:
         try:
-            execute_results.append(main_func(tech))
+            execute_result = main_func(tech)
         except:
-            execute_results.append('{tech} {oss} Fail'.format(tech=tech, oss=oss_type))
+            execute_result = '{tech} {oss} Fail'.format(tech=tech, oss=oss_type)
+        print(execute_result)
+        execute_results.append(execute_result)
     return execute_results
 
 
@@ -38,9 +41,11 @@ def main():
     enm_technologies = ['LTE', 'WCDMA', 'GSM']
     for enm_tech in enm_technologies:
         try:
-            update_results.append(enm_main(enm_tech, truncate=True))
+            enm_result = enm_main(enm_tech, truncate=True)
         except:
-            update_results.append('{enm_tech} ENM Fail'.format(enm_tech=enm_tech))
+            enm_result = '{enm_tech} ENM Fail'.format(enm_tech=enm_tech)
+        print(enm_result)
+        update_results.append(enm_result)
 
     oss_technologies = ['WCDMA', 'GSM']
     update_results += execute_main_func(oss_main, oss_technologies, 'OSS')
@@ -54,8 +59,9 @@ def main():
     tele2_technologies = ['LTE', 'WCDMA', 'GSM']
     update_results += execute_main_func(tele2_main, tele2_technologies, 'Tele2')
 
-    for line in update_results.sort():
-        print(line)
+    update_results.sort()
+    message = '\n'.join(update_results)
+    send_email('ramil.albakov@kcell.kz', 'Network Live update report', message)
 
 
 if __name__ == '__main__':

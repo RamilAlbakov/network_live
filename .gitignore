@@ -10,3 +10,4 @@ coverage.xml
 logs/beeline/*
 logs/tele2/*
 logs/oss/*
+tests/*_data/
