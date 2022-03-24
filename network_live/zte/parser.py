@@ -71,7 +71,7 @@ def parse_gsm_cells(zte_gsm_data):
         list of dicts
     """
     gsm_cells = []
-    for gcell in zte_gsm_data:
+    for gcell in set(zte_gsm_data):
         (
             bsc_id,
             bsc_name,
