@@ -38,7 +38,7 @@ def execute_main_func(main_func, technologies, oss_type):
 def main():
     """Update network live db."""
     update_results = []
-    enm_technologies = ['LTE', 'WCDMA', 'GSM']
+    enm_technologies = ['LTE', 'WCDMA', 'GSM', 'NR']
     for enm_tech in enm_technologies:
         try:
             enm_result = enm_main(enm_tech, truncate=True)

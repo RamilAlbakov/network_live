@@ -22,6 +22,8 @@ def parse_mo_value(fdn, mo_type):
         'IubLink': 'IubLink=.*',
         'GeranCell': 'GeranCell=.*',
         'ChannelGroupCell': 'GeranCell=[^,]*',
+        'NRSectorCarrier': 'NRSectorCarrier=.*',
+        'NRCellDU': 'NRCellDU=.*',
     }
     mo_value_index = -1
 

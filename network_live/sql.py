@@ -78,6 +78,30 @@ gsm_insert_sql = """
     )
 """
 
+nr_insert_sql = """
+    INSERT
+        INTO nrcells
+    VALUES (
+        :subnetwork,
+        :gNBId,
+        :site_name,
+        :cell_name,
+        :cellLocalId,
+        :cellState,
+        :nCI,
+        :nRPCI,
+        :nRTAC,
+        :rachRootSequence,
+        :qRxLevMin,
+        :arfcnDL,
+        :bSChannelBwDL,
+        :configuredMaxTxPower,
+        :ip_address,
+        :vendor,
+        :insert_date
+    )
+"""
+
 
 class Sql(object):
     """Sql data to communicate with network live db."""
@@ -86,12 +110,14 @@ class Sql(object):
         'LTE': lte_insert_sql,
         'WCDMA': wcdma_insert_sql,
         'GSM': gsm_insert_sql,
+        'NR': nr_insert_sql,
     }
 
     insert_tables = {
         'LTE': 'ltecells2',
         'WCDMA': 'wcdmacells2',
         'GSM': 'gsmcells2',
+        'NR': 'nrcells',
     }
 
     @classmethod

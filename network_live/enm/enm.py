@@ -44,6 +44,22 @@ class Enm(object):
         'state',
     ]
 
+    nrcell_params = [
+        'cellLocalId',
+        'cellState',
+        'nCI',
+        'nRPCI',
+        'nRTAC',
+        'qRxLevMin',
+        'rachRootSequence',
+    ]
+
+    nrsector_params = [
+        'arfcnDL',
+        'bSChannelBwDL',
+        'configuredMaxTxPower',
+    ]
+
     cli_commands = {
         'lte_cells': 'cmedit get * EutranCellFdd.({params})'.format(
             params=','.join(eutrancellfdd_params),
@@ -62,7 +78,14 @@ class Enm(object):
         ),
         'channel_group': 'cmedit get * ChannelGroup.(channelGroupId==1, hsn, maio, dchNo)',
         'bsc_id': 'cmedit get * Bsc.(bscId)',
-        'gsm_sites': ' cmedit get * G31Tg.(rSite,sector)',
+        'gsm_sites': 'cmedit get * G31Tg.(rSite,sector)',
+        'gnbid': 'cmedit get * GNBDUFunction.(gNBId)',
+        'nrcells': 'cmedit get * NRCellDU.({params})'.format(
+            params=','.join(nrcell_params),
+        ),
+        'nr_sector_carrier': 'cmedit get * NRSectorCarrier.({params})'.format(
+            params=','.join(nrsector_params),
+        ),
     }
 
     @classmethod

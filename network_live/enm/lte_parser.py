@@ -27,7 +27,7 @@ def parse_lte_cells(enm_lte_cells, enodeb_ids, ip_data):
 
     Args:
         enm_lte_cells: list of strings
-        enodeb_ids: list of strings
+        enodeb_ids: dict
         ip_data: dict
 
     Returns:
