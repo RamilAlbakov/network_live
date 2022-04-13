@@ -150,7 +150,7 @@ def parse_lncel_params(log_lines):
             if 'name="eutraCelId"' in line:
                 cell['eci'] = parse_parameter_value(line)
             if 'name="phyCellId"' in line:
-                cell['physicalLayerCellIdGroup'] = parse_parameter_value(line)
+                cell['physicalLayerCellId'] = parse_parameter_value(line)
             if 'name="tac"' in line:
                 cell['tac'] = parse_parameter_value(line)
                 lncel_class = False

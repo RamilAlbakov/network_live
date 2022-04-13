@@ -22,7 +22,7 @@ lte_insert_sql = """
         :longitude,
         :administrativeState,
         :rachRootSequence,
-        :physicalLayerCellIdGroup,
+        :physicalLayerCellId,
         :ip_address,
         :vendor,
         :insert_date

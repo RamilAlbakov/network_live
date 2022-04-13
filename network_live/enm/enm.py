@@ -15,7 +15,7 @@ class Enm(object):
         'earfcndl',
         'latitude',
         'longitude',
-        'physicalLayerCellIdGroup',
+        'physicalLayerCellId',
         'qRxLevMin',
         'rachRootSequence',
         'tac',

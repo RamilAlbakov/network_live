@@ -59,7 +59,7 @@ def parse_lte(log_path):
             lte_cell['longitude'] = None
             lte_cell['administrativeState'] = row['Cell admin state']
             lte_cell['rachRootSequence'] = convert_string_to_num(row['Root sequence index'])
-            lte_cell['physicalLayerCellIdGroup'] = row['Physical cell ID']
+            lte_cell['physicalLayerCellId'] = row['Physical cell ID']
 
             lte_cells.append(lte_cell)
     return lte_cells

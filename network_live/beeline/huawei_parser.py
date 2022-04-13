@@ -162,7 +162,7 @@ def parse_huawei_xml(xml_path, sharing):
             cell['earfcndl'] = parse_tag_text('DlEarfcn', element)
             cell['administrativeState'] = parse_tag_text('CellActiveState', element)
             cell['rachRootSequence'] = parse_tag_text('RootSequenceIdx', element)
-            cell['physicalLayerCellIdGroup'] = parse_tag_text('PhyCellId', element)
+            cell['physicalLayerCellId'] = parse_tag_text('PhyCellId', element)
             cell['qRxLevMin'] = qrxlevmin_data[cell_id]
             cell['tac'] = parse_tac(root, sharing)
             cell['ip_address'] = parse_ip(root)
