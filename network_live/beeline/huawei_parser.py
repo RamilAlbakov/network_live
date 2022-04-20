@@ -148,8 +148,9 @@ def parse_huawei_xml(xml_path, sharing):
 
     for element in root.iter(make_tag('Cell')):
         cell = {
+            'oss': 'Beeline Huawei',
             'subnetwork': 'Beeline',
-            'vendor': 'huawei',
+            'vendor': 'Huawei',
             'latitude': None,
             'longitude': None,
             'insert_date': Date.get_date('network_live'),

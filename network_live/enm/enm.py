@@ -97,7 +97,7 @@ class Enm(object):
             command: string
 
         Returns:
-            list of strings
+            list
         """
         session = enmscripting.open(os.getenv('ENM_SERVER')).with_credentials(
             enmscripting.UsernameAndPassword(
@@ -105,9 +105,7 @@ class Enm(object):
                 os.getenv('ENM_PASSWORD'),
             ),
         )
-        terminal = session.terminal()
-        response = terminal.execute(cls.cli_commands[command])
-        enm_data = response.get_output()
+        enm_cmd = session.command()
+        response = enm_cmd.execute(cls.cli_commands[command])
         enmscripting.close(session)
-
-        return enm_data
+        return response.get_output()

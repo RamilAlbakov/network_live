@@ -26,7 +26,7 @@ def parse_lte_cells(enm_lte_cells, enodeb_ids, ip_data):
     Parse lte cells parameters from ENM data.
 
     Args:
-        enm_lte_cells: list of strings
+        enm_lte_cells: enmscripting ElementGroup
         enodeb_ids: dict
         ip_data: dict
 
@@ -35,21 +35,24 @@ def parse_lte_cells(enm_lte_cells, enodeb_ids, ip_data):
     """
     lte_cells = []
     for element in enm_lte_cells:
-        if 'FDN' in element:
+        element_val = element.value()
+        if 'error' in element_val.lower():
+            return []
+        elif 'FDN' in element_val:
             cell = {
-                'vendor': 'ericsson',
+                'oss': 'ENM',
+                'vendor': 'Ericsson',
                 'insert_date': Date.get_date('network_live'),
             }
-            cell['subnetwork'] = parse_mo_value(element, 'SubNetwork')
-            cell['site_name'] = parse_mo_value(element, 'MeContext')
-            cell['cell_name'] = parse_mo_value(element, 'EUtranCellFDD')
-        elif ' : ' in element:
-            attr_name, attr_value = element.split(' : ')
+            cell['subnetwork'] = parse_mo_value(element_val, 'SubNetwork')
+            cell['site_name'] = parse_mo_value(element_val, 'MeContext')
+            cell['cell_name'] = parse_mo_value(element_val, 'EUtranCellFDD')
+        elif ' : ' in element_val:
+            attr_name, attr_value = element_val.split(' : ')
             cell[attr_name] = attr_value
-        elif element == '' and cell:
-            cell['enodeb_id'] = enodeb_ids[cell['site_name']]
-            cell['eci'] = calculate_eci(cell['enodeb_id'], cell['cellId'])
-            cell['ip_address'] = ip_data[cell['site_name']]
-            lte_cells.append(cell)
-            cell = {}
+            if attr_name == 'tac':
+                cell['enodeb_id'] = enodeb_ids[cell['site_name']]
+                cell['eci'] = calculate_eci(cell['enodeb_id'], cell['cellId'])
+                cell['ip_address'] = ip_data[cell['site_name']]
+                lte_cells.append(cell)
     return lte_cells

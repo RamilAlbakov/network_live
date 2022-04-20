@@ -184,11 +184,12 @@ def parse_nokia_xml(xml_path):
         lncel['rachRootSequence'] = lncellfdd_params[cell_id]['rachRootSequence']
         lncel['qRxLevMin'] = sib_params[cell_id]
         lncel['subnetwork'] = 'Beeline'
-        lncel['vendor'] = 'nokia'
+        lncel['vendor'] = 'Nokia'
         lncel['latitude'] = None
         lncel['longitude'] = None
         lncel['ip_address'] = None
         lncel['insert_date'] = Date.get_date('network_live')
+        lncel['oss'] = 'Beeline Nokia'
 
     return lncel_params
 

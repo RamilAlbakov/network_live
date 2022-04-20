@@ -54,18 +54,19 @@ def parse_ips(enm_ip_data):
     Parse ip addresses for nodes in enm data.
 
     Args:
-        enm_ip_data: list of strings
+        enm_ip_data: enmscripting ElementGroup
 
     Returns:
         dict
     """
     node_ips = {}
     for element in enm_ip_data:
-        if 'FDN' in element and 'oam' in element.lower():
-            name = parse_mo_value(element, 'MeContext')
+        element_val = element.value()
+        if 'FDN' in element_val and 'oam' in element_val.lower():
+            name = parse_mo_value(element_val, 'MeContext')
             oam = True
-        elif ' : ' in element and oam:
-            node_ips[name] = get_ip(element)
+        elif ' : ' in element_val and oam:
+            node_ips[name] = get_ip(element_val)
             oam = False
     return node_ips
 
@@ -75,7 +76,7 @@ def parse_node_parameter(enm_node_data, node_type):
     Parse parameter if in enm data for one node present one parameter.
 
     Args:
-        enm_node_data: list of strings
+        enm_node_data: enmscripting ElementGroup
         node_type: string
 
     Returns:
@@ -85,9 +86,10 @@ def parse_node_parameter(enm_node_data, node_type):
     attr_value_index = -1
     node_parameter = {}
     for element in enm_node_data:
-        if 'FDN' in element:
-            node_name = parse_mo_value(element, node_type)
-        elif attr_delimeter in element:
-            node_parameter[node_name] = element.split(attr_delimeter)[attr_value_index]
+        element_val = element.value()
+        if 'FDN' in element_val:
+            node_name = parse_mo_value(element_val, node_type)
+        elif attr_delimeter in element_val:
+            node_parameter[node_name] = element_val.split(attr_delimeter)[attr_value_index]
 
     return node_parameter

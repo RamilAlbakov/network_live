@@ -1,6 +1,5 @@
 """Present class to communicate with network live db."""
 
-
 import os
 
 import cx_Oracle
@@ -25,7 +24,8 @@ lte_insert_sql = """
         :physicalLayerCellId,
         :ip_address,
         :vendor,
-        :insert_date
+        :insert_date,
+        :oss
     )
 """
 
@@ -121,7 +121,7 @@ class Sql(object):
     }
 
     @classmethod
-    def insert(cls, cell_data, oss, technology, truncate=False):
+    def insert(cls, cell_data, oss, technology):
         """
         Isert cell data to Network Live db.
 
@@ -129,7 +129,6 @@ class Sql(object):
             cell_data: list of dicts
             oss: string
             technology: string
-            truncate: bool
 
         Returns:
             string
@@ -146,13 +145,60 @@ class Sql(object):
                 dsn=atoll_dsn,
             ) as connection:
                 cursor = connection.cursor()
-                if truncate:
-                    cursor.execute('TRUNCATE TABLE {table}'.format(
-                        table=cls.insert_tables[technology],
-                    ))
                 for cell in cell_data:
                     cursor.execute(cls.insert_sqls[technology], cell)
                 connection.commit()
                 return '{technology} {oss} Success'.format(technology=technology, oss=oss)
         except cx_Oracle.Error:
             return '{technology} {oss} Fail'.format(technology=technology, oss=oss)
+
+
+def update_network_live(cell_data, oss, technology):
+    """
+    Update Network Live with cell data for given oss and technology.
+
+    Args:
+        cell_data: list
+        oss: str
+        technology: str
+
+    Returns:
+        string
+    """
+    insert_sqls = {
+        'LTE': lte_insert_sql,
+        'WCDMA': wcdma_insert_sql,
+        'GSM': gsm_insert_sql,
+        'NR': nr_insert_sql,
+    }
+    network_live_tables = {
+        'LTE': 'ltecells2',
+        'WCDMA': 'wcdmacells2',
+        'GSM': 'gsmcells2',
+        'NR': 'nrcells',
+    }
+
+    delete_sql = "DELETE FROM {table} WHERE oss='{oss}'".format(
+        table=network_live_tables[technology],
+        oss=oss,
+    )
+
+    atoll_dsn = cx_Oracle.makedsn(
+        os.getenv('ATOLL_HOST'),
+        os.getenv('ATOLL_PORT'),
+        service_name=os.getenv('SERVICE_NAME'),
+    )
+    try:
+        with cx_Oracle.connect(
+            user=os.getenv('ATOLL_LOGIN'),
+            password=os.getenv('ATOLL_PASSWORD'),
+            dsn=atoll_dsn,
+        ) as connection:
+            cursor = connection.cursor()
+            cursor.execute(delete_sql)
+            for cell in cell_data:
+                cursor.execute(insert_sqls[technology], cell)
+            connection.commit()
+            return '{technology} {oss} Success'.format(technology=technology, oss=oss)
+    except cx_Oracle:
+        return '{technology} {oss} Fail'.format(technology=technology, oss=oss)

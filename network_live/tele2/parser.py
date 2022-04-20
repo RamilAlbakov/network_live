@@ -42,9 +42,10 @@ def parse_lte(log_path):
                 continue
 
             lte_cell = {
+                'oss': 'Tele2',
                 'subnetwork': 'Tele2',
                 'ip_address': None,
-                'vendor': 'huawei',
+                'vendor': 'Huawei',
                 'insert_date': Date.get_date('network_live'),
             }
             lte_cell['enodeb_id'] = convert_string_to_num(row['eNodeB Id'])

@@ -4,7 +4,7 @@ import os
 
 from network_live.download_logs import download_ftp_logs
 from network_live.huawei250_parser import parse_gsm_cells, parse_huawei_wcdma_cells
-from network_live.sql import Sql
+from network_live.sql import Sql, update_network_live
 from network_live.tele2.parser import parse_lte
 
 
@@ -23,7 +23,7 @@ def tele2_main(technology):
         download_ftp_logs('tele2_lte')
         lte_log_path = '{logs_path}/tele2_lte_log.csv'.format(logs_path=logs_path)
         lte_cells = parse_lte(lte_log_path)
-        return Sql.insert(lte_cells, 'Tele2', technology)
+        return update_network_live(lte_cells, 'Tele2', technology)
     elif technology == 'WCDMA':
         download_ftp_logs('tele2_wcdma')
         log_name = os.listdir(logs_path)[0]
