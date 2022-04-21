@@ -73,23 +73,26 @@ def parse_wcdma_cells(enm_wcdma_cells, enm_rnc_ids, enm_iublink_data, enm_site_n
     attr_delimeter = ' : '
     wcdma_cells = []
     for element in enm_wcdma_cells:
-        if 'FDN' in element:
+        element_val = element.value()
+        if 'error' in element_val.lower():
+            return []
+        elif 'FDN' in element_val:
             cell = {
                 'operator': 'Kcell',
-                'rnc_name': parse_mo_value(element, 'MeContext'),
-                'vendor': 'ericsson',
+                'oss': 'ENM',
+                'rnc_name': parse_mo_value(element_val, 'MeContext'),
+                'vendor': 'Ericsson',
                 'insert_date': Date.get_date('network_live'),
             }
-        elif attr_delimeter in element:
-            parameter_name, parameter_value = parse_parameter(element)
+        elif attr_delimeter in element_val:
+            parameter_name, parameter_value = parse_parameter(element_val)
             cell[parameter_name] = parameter_value
-        elif element == '' and cell:
-            cell['site_name'] = site_names[cell['IubLink']]
-            cell['rnc_id'] = rnc_ids[cell['rnc_name']]
-            try:
-                cell['ip_address'] = node_ips[cell['site_name']]
-            except KeyError:
-                cell['ip_address'] = None
-            wcdma_cells.append(cell)
-            cell = {}
+            if parameter_name == 'Ura':
+                cell['site_name'] = site_names[cell['IubLink']]
+                cell['rnc_id'] = rnc_ids[cell['rnc_name']]
+                try:
+                    cell['ip_address'] = node_ips[cell['site_name']]
+                except KeyError:
+                    cell['ip_address'] = None
+                wcdma_cells.append(cell)
     return wcdma_cells

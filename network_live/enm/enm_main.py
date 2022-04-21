@@ -21,6 +21,7 @@ def enm_main(technology, truncate=False):
     Returns:
         list of dicts
     """
+    oss = 'ENM'
     if technology in {'LTE', 'WCDMA', 'NR'}:
         enm_node_ips = Enm.execute_enm_command('dus_ip') + Enm.execute_enm_command('bbu_ip')
         node_ips = parse_ips(enm_node_ips)
@@ -31,9 +32,8 @@ def enm_main(technology, truncate=False):
         enodeb_ids = parse_node_parameter(enm_enodeb_ids, 'MeContext')
         lte_cells = parse_lte_cells(enm_lte_cells, enodeb_ids, node_ips)
         if lte_cells:
-            return update_network_live(lte_cells, 'ENM', 'LTE')
-        else:
-            return 'LTE ENM Fail'
+            return update_network_live(lte_cells, oss, technology)
+        return 'LTE ENM Fail'
     elif technology == 'WCDMA':
         enm_wcdma_cells = Enm.execute_enm_command('wcdma_cells')
         enm_rnc_ids = Enm.execute_enm_command('rnc_ids')
@@ -46,7 +46,9 @@ def enm_main(technology, truncate=False):
             enm_site_names,
             node_ips,
         )
-        return Sql.insert(wcdma_cells, 'ENM', technology, truncate)
+        if wcdma_cells:
+            return update_network_live(wcdma_cells, oss, technology)
+        return 'WCDMA ENM Fail'
     elif technology == 'GSM':
         enm_bsc = Enm.execute_enm_command('bsc_id')
         enm_sites = Enm.execute_enm_command('gsm_sites')

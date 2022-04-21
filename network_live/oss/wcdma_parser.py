@@ -231,6 +231,7 @@ def parse_wcdma_cells(xml_path, enm_sites, enm_ips):
             rbs_id = rbs_ids[iub_link]
             cell = {
                 'operator': 'Kcell',
+                'oss': 'OSS',
                 'rnc_id': rnc_id,
                 'rnc_name': rnc_name,
                 'site_name': get_site_name(sites, rbs_id),
@@ -253,7 +254,7 @@ def parse_wcdma_cells(xml_path, enm_sites, enm_ips):
                 'IubLink': iub_link,
                 'MocnCellProfile': parse_mocn_cell_profile(utran_cell_tag),
                 'ip_address': get_ip(sites, rbs_id),
-                'vendor': 'ericsson',
+                'vendor': 'Ericsson',
                 'insert_date': Date.get_date('network_live'),
             }
             wcdma_cells.append(cell)

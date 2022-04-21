@@ -37,6 +37,7 @@ def parse_wcdma_cells(zte_cell_data, zte_rnc_data):
 
         cell = {
             'operator': 'Kcell',
+            'oss': 'ZTE',
             'rnc_id': rnc_id,
             'rnc_name': rnc_names[rnc_id],
             'site_name': nodeb_name.split(' ')[0],
@@ -53,7 +54,7 @@ def parse_wcdma_cells(zte_cell_data, zte_rnc_data):
             'IubLink': iublinkref.split('=')[-1],
             'MocnCellProfile': None,
             'ip_address': None,
-            'vendor': 'zte',
+            'vendor': 'ZTE',
             'insert_date': Date.get_date('network_live'),
         }
         wcdma_cells.append(cell)

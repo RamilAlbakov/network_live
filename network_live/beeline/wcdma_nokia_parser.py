@@ -98,6 +98,7 @@ def parse_nokia_wcdma_cells(logs_path):
         rnc_id = rnc_name.split('-')[-1]
         cell = {
             'operator': 'Beeline',
+            'oss': 'Beeline Nokia',
             'rnc_id': rnc_id,
             'rnc_name': rnc_name,
             'site_name': sites[site_id],
@@ -114,7 +115,7 @@ def parse_nokia_wcdma_cells(logs_path):
             'IubLink': None,
             'MocnCellProfile': None,
             'ip_address': None,
-            'vendor': 'nokia',
+            'vendor': 'Nokia',
             'insert_date': Date.get_date('network_live'),
         }
         wcdma_cells.append(cell)

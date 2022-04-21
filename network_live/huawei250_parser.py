@@ -70,6 +70,11 @@ def parse_huawei_wcdma_cells(xml_path, operator):
     Returns:
         list of dicts
     """
+    if operator == 'Tele2':
+        oss = operator
+    elif operator == 'Beeline':
+        oss = 'Beeline Huawei'
+
     root = ElementTree.parse(xml_path).getroot()
     rnc_name = get_controller_name(root)
 
@@ -96,6 +101,7 @@ def parse_huawei_wcdma_cells(xml_path, operator):
     for cell_id in cell_ids:
         cell = {
             'operator': operator,
+            'oss': oss,
             'rnc_id': ucell_data[cell_id]['LOGICRNCID'],
             'rnc_name': rnc_name,
             'site_name': ucell_data[cell_id]['NODEBNAME'],
@@ -112,7 +118,7 @@ def parse_huawei_wcdma_cells(xml_path, operator):
             'IubLink': None,
             'MocnCellProfile': None,
             'ip_address': None,
-            'vendor': 'huawei',
+            'vendor': 'Huawei',
             'insert_date': Date.get_date('network_live'),
         }
         wcdma_cells.append(cell)
@@ -188,6 +194,11 @@ def parse_gsm_cells(xml_path, operator):
     Returns:
         list of dicts
     """
+    if operator == 'Tele2':
+        oss = operator
+    elif operator == 'Beeline':
+        oss = 'Beeline Huawei'
+
     root = ElementTree.parse(xml_path).getroot()
     bsc_name = get_controller_name(root)
 
@@ -217,6 +228,7 @@ def parse_gsm_cells(xml_path, operator):
             hsn = None
         cell = {
             'operator': operator,
+            'oss': oss,
             'bsc_id': None,
             'bsc_name': bsc_name,
             'site_name': site_names[cell_id],
@@ -230,7 +242,7 @@ def parse_gsm_cells(xml_path, operator):
             'maio': None,
             'tch_freqs': ', '.join(trx_parameters[cell_id]['tch_freqs']),
             'state': cell_attrs[cell_id]['ACTSTATUS'],
-            'vendor': 'huawei',
+            'vendor': 'Huawei',
             'insert_date': Date.get_date('network_live'),
         }
         gsm_cells.append(cell)
