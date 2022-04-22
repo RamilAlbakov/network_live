@@ -9,7 +9,7 @@ def parse_sites(enm_sites):
     Parse site names for bsc and cell name.
 
     Args:
-        enm_sites: list of dicts
+        enm_sites: enmscripting ElementGroup
 
     Returns:
         dict
@@ -36,7 +36,7 @@ def parse_channel_group(enm_channel_group):
     Parse hsn, maio, tch_freqs parameters from ChannelGroup mo.
 
     Args:
-        enm_channel_group: list of strings
+        enm_channel_group: enmscripting ElementGroup
 
     Returns:
         dict
@@ -63,10 +63,10 @@ def parse_gsm_cells(enm_gsmcells, enm_bsc, enm_sites, enm_channel_group):
     Parse gsm cell data for network live from enm data.
 
     Args:
-        enm_gsmcells: list of strings
-        enm_bsc: list of strings
-        enm_sites: list of strings
-        enm_channel_group: list of strings
+        enm_gsmcells: enmscripting ElementGroup
+        enm_bsc: enmscripting ElementGroup
+        enm_sites: enmscripting ElementGroup
+        enm_channel_group: enmscripting ElementGroup
 
     Returns:
         list of dicts

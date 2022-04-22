@@ -100,59 +100,10 @@ nr_insert_sql = """
         :configuredMaxTxPower,
         :ip_address,
         :vendor,
-        :insert_date
+        :insert_date,
+        :oss
     )
 """
-
-
-class Sql(object):
-    """Sql data to communicate with network live db."""
-
-    insert_sqls = {
-        'LTE': lte_insert_sql,
-        'WCDMA': wcdma_insert_sql,
-        'GSM': gsm_insert_sql,
-        'NR': nr_insert_sql,
-    }
-
-    insert_tables = {
-        'LTE': 'ltecells2',
-        'WCDMA': 'wcdmacells2',
-        'GSM': 'gsmcells2',
-        'NR': 'nrcells',
-    }
-
-    @classmethod
-    def insert(cls, cell_data, oss, technology):
-        """
-        Isert cell data to Network Live db.
-
-        Args:
-            cell_data: list of dicts
-            oss: string
-            technology: string
-
-        Returns:
-            string
-        """
-        atoll_dsn = cx_Oracle.makedsn(
-            os.getenv('ATOLL_HOST'),
-            os.getenv('ATOLL_PORT'),
-            service_name=os.getenv('SERVICE_NAME'),
-        )
-        try:
-            with cx_Oracle.connect(
-                user=os.getenv('ATOLL_LOGIN'),
-                password=os.getenv('ATOLL_PASSWORD'),
-                dsn=atoll_dsn,
-            ) as connection:
-                cursor = connection.cursor()
-                for cell in cell_data:
-                    cursor.execute(cls.insert_sqls[technology], cell)
-                connection.commit()
-                return '{technology} {oss} Success'.format(technology=technology, oss=oss)
-        except cx_Oracle.Error:
-            return '{technology} {oss} Fail'.format(technology=technology, oss=oss)
 
 
 def update_network_live(cell_data, oss, technology):

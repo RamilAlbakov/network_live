@@ -7,7 +7,7 @@ from network_live.enm.parser_utils import parse_ips, parse_node_parameter
 from network_live.oss.gsm_parser import parse_gsm_cells
 from network_live.oss.oss_ssh import collect_oss_logs
 from network_live.oss.wcdma_parser import parse_wcdma_cells
-from network_live.sql import Sql, update_network_live
+from network_live.sql import update_network_live
 
 
 def oss_main(technology):
@@ -40,7 +40,6 @@ def oss_main(technology):
             download_oss_logs(technology)
             logs_path = 'logs/oss/network_live_gsm_export.txt'
             gsm_cells = parse_gsm_cells(logs_path)
-            print(gsm_cells)
             return update_network_live(gsm_cells, oss, technology)
 
     return '{technology} {oss} Fail'.format(technology=technology, oss=oss)

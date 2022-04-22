@@ -97,7 +97,7 @@ class Enm(object):
             command: string
 
         Returns:
-            list
+            enmscripting ElementGroup
         """
         session = enmscripting.open(os.getenv('ENM_SERVER')).with_credentials(
             enmscripting.UsernameAndPassword(

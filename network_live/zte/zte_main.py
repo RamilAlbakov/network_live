@@ -1,6 +1,6 @@
 """Update network live with ZTE cells."""
 
-from network_live.sql import Sql, update_network_live
+from network_live.sql import update_network_live
 from network_live.zte.parser import parse_gsm_cells, parse_wcdma_cells
 from network_live.zte.select_data import select_zte_data
 

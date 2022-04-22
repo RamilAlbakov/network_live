@@ -1,25 +1,23 @@
 """Update network live with ENM cells."""
 
-
 from network_live.enm.enm import Enm
 from network_live.enm.gsm_parser import parse_gsm_cells
 from network_live.enm.lte_parser import parse_lte_cells
 from network_live.enm.nr_parser import parse_nr_cells
 from network_live.enm.parser_utils import parse_ips, parse_node_parameter
 from network_live.enm.wcdma_parser import parse_wcdma_cells
-from network_live.sql import Sql, update_network_live
+from network_live.sql import update_network_live
 
 
-def enm_main(technology, truncate=False):
+def enm_main(technology):
     """
     Update network live with ENM cells.
 
     Args:
         technology: string
-        truncate: bool
 
     Returns:
-        list of dicts
+        string
     """
     oss = 'ENM'
     if technology in {'LTE', 'WCDMA', 'NR'}:
@@ -61,5 +59,6 @@ def enm_main(technology, truncate=False):
         enm_nr_ids = Enm.execute_enm_command('gnbid')
         nr_ids = parse_node_parameter(enm_nr_ids, 'MeContext')
         nr_cells = parse_nr_cells(enm_nr_cells, enm_nr_sectors, nr_ids, node_ips)
-        return Sql.insert(nr_cells, 'ENM', technology, truncate)
+        if nr_cells:
+            return update_network_live(nr_cells, oss, technology)
     return '{tech} {oss} Fail'.format(tech=technology, oss=oss)

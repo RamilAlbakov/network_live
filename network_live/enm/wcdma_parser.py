@@ -9,8 +9,8 @@ def parse_site_names(enm_site_names, enm_iublink_data):
     Parse umts site names using iublink and rbs_ids from ENM.
 
     Args:
-        enm_site_names: list of strings
-        enm_iublink_data: list of strings
+        enm_site_names: enmscripting ElementGroup
+        enm_iublink_data: enmscripting ElementGroup
 
     Returns:
         dict
@@ -58,10 +58,10 @@ def parse_wcdma_cells(enm_wcdma_cells, enm_rnc_ids, enm_iublink_data, enm_site_n
     Parse utrancell parameters from enm data.
 
     Args:
-        enm_wcdma_cells: list of strings
-        enm_rnc_ids: list of strings
-        enm_iublink_data: list of strings
-        enm_site_names: list of strings
+        enm_wcdma_cells: enmscripting ElementGroup
+        enm_rnc_ids: enmscripting ElementGroup
+        enm_iublink_data: enmscripting ElementGroup
+        enm_site_names: enmscripting ElementGroup
         node_ips: dict
 
     Returns:

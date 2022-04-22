@@ -4,7 +4,7 @@ import os
 
 from network_live.download_logs import download_ftp_logs
 from network_live.huawei250_parser import parse_gsm_cells, parse_huawei_wcdma_cells
-from network_live.sql import Sql, update_network_live
+from network_live.sql import update_network_live
 from network_live.tele2.parser import parse_lte
 
 
