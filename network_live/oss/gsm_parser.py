@@ -86,6 +86,7 @@ def parse_gsm_cells(log_path):
             continue
         cell = {
             'operator': 'Kcell',
+            'oss': 'OSS',
             'bsc_id': None,
             'bsc_name': get_parameter_value('BSC', gsm_params, line),
             'site_name': get_parameter_value('SITE', gsm_params, line),
@@ -99,7 +100,7 @@ def parse_gsm_cells(log_path):
             'maio': parse_hopping_params('maio', gsm_params, line),
             'tch_freqs': parse_hopping_params('tch', gsm_params, line),
             'state': get_parameter_value('cell_state', gsm_params, line),
-            'vendor': 'ericsson',
+            'vendor': 'Ericsson',
             'insert_date': Date.get_date('network_live'),
         }
         gsm_cells.append(cell)

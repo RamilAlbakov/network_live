@@ -17,15 +17,16 @@ def parse_sites(enm_sites):
     sites = {}
     previous_bsc_name = ''
     for element in enm_sites:
-        if 'FDN' in element:
-            bsc_name = parse_mo_value(element, 'MeContext')
+        element_val = element.value()
+        if 'FDN' in element_val:
+            bsc_name = parse_mo_value(element_val, 'MeContext')
             if previous_bsc_name != bsc_name:
                 sites[bsc_name] = {}
                 previous_bsc_name = bsc_name
-        elif 'rSite' in element:
-            site_name = element.split(' : ')[-1]
-        elif 'sector' in element:
-            cell_name = element.split(' : ')[-1]
+        elif 'rSite' in element_val:
+            site_name = element_val.split(' : ')[-1]
+        elif 'sector' in element_val:
+            cell_name = element_val.split(' : ')[-1]
             sites[bsc_name][cell_name[:-1]] = site_name
     return sites
 
@@ -43,15 +44,16 @@ def parse_channel_group(enm_channel_group):
     channel_data = {}
     previous_bsc_name = ''
     for element in enm_channel_group:
-        if 'FDN' in element:
-            bsc_name = parse_mo_value(element, 'MeContext')
+        element_val = element.value()
+        if 'FDN' in element_val:
+            bsc_name = parse_mo_value(element_val, 'MeContext')
             if previous_bsc_name != bsc_name:
                 channel_data[bsc_name] = {}
                 previous_bsc_name = bsc_name
-            cell_name = parse_mo_value(element, 'ChannelGroupCell')
+            cell_name = parse_mo_value(element_val, 'ChannelGroupCell')
             channel_data[bsc_name][cell_name] = {}
-        elif ' : ' in element:
-            parameter_name, parameter_value = element.split(' : ')
+        elif ' : ' in element_val:
+            parameter_name, parameter_value = element_val.split(' : ')
             channel_data[bsc_name][cell_name][parameter_name] = parameter_value
     return channel_data
 
@@ -74,30 +76,37 @@ def parse_gsm_cells(enm_gsmcells, enm_bsc, enm_sites, enm_channel_group):
     channel_data = parse_channel_group(enm_channel_group)
     gsm_cells = []
     for element in enm_gsmcells:
-        if 'FDN' in element:
-            bsc_name = parse_mo_value(element, 'MeContext')
-            cell_name = parse_mo_value(element, 'GeranCell')
+        element_val = element.value()
+        if 'error' in element_val.lower():
+            return []
+        elif 'FDN' in element_val:
+            bsc_name = parse_mo_value(element_val, 'MeContext')
+            cell_name = parse_mo_value(element_val, 'GeranCell')
             short_cell_name = cell_name[:-1]
+            try:
+                site_name = sites[bsc_name][short_cell_name]
+            except KeyError:
+                site_name = None
             cell = {
                 'operator': 'Kcell',
+                'oss': 'ENM',
                 'bsc_id': bsc_ids[bsc_name],
                 'bsc_name': bsc_name,
-                'site_name': sites[bsc_name][short_cell_name],
+                'site_name': site_name,
                 'cell_name': cell_name,
                 'tch_freqs': channel_data[bsc_name][cell_name]['dchNo'],
                 'hsn': channel_data[bsc_name][cell_name]['hsn'],
                 'maio': channel_data[bsc_name][cell_name]['maio'],
-                'vendor': 'ericsson',
+                'vendor': 'Ericsson',
                 'insert_date': Date.get_date('network_live'),
             }
-        elif ' : ' in element:
-            parameter_name, parameter_value = element.split(' : ')
+        elif ' : ' in element_val:
+            parameter_name, parameter_value = element_val.split(' : ')
             if parameter_name == 'cgi':
                 cell['lac'] = parameter_value.split('-')[-2]
                 cell['cell_id'] = parameter_value.split('-')[-1]
             else:
                 cell[parameter_name] = parameter_value
-        elif element == '' and cell:
-            gsm_cells.append(cell)
-            cell = {}
+                if parameter_name == 'state':
+                    gsm_cells.append(cell)
     return gsm_cells

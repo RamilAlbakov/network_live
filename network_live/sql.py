@@ -75,7 +75,8 @@ gsm_insert_sql = """
         :tch_freqs,
         :state,
         :vendor,
-        :insert_date
+        :insert_date,
+        :oss
     )
 """
 

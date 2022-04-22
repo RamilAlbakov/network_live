@@ -87,6 +87,7 @@ def parse_gsm_cells(zte_gsm_data):
         ) = gcell
         cell = {
             'operator': 'Kcell',
+            'oss': 'ZTE',
             'bsc_id': bsc_id,
             'bsc_name': bsc_name,
             'site_name': site_name,
@@ -100,7 +101,7 @@ def parse_gsm_cells(zte_gsm_data):
             'maio': None,
             'tch_freqs': tch_freqs,
             'state': None,
-            'vendor': 'zte',
+            'vendor': 'ZTE',
             'insert_date': Date.get_date('network_live'),
         }
         gsm_cells.append(cell)

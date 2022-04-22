@@ -40,6 +40,7 @@ def oss_main(technology):
             download_oss_logs(technology)
             logs_path = 'logs/oss/network_live_gsm_export.txt'
             gsm_cells = parse_gsm_cells(logs_path)
-            return Sql.insert(gsm_cells, 'OSS', technology)
+            print(gsm_cells)
+            return update_network_live(gsm_cells, oss, technology)
 
-    return '{technology} OSS Fail'.format(technology=technology)
+    return '{technology} {oss} Fail'.format(technology=technology, oss=oss)

@@ -194,11 +194,6 @@ def parse_gsm_cells(xml_path, operator):
     Returns:
         list of dicts
     """
-    if operator == 'Tele2':
-        oss = operator
-    elif operator == 'Beeline':
-        oss = 'Beeline Huawei'
-
     root = ElementTree.parse(xml_path).getroot()
     bsc_name = get_controller_name(root)
 
@@ -228,7 +223,7 @@ def parse_gsm_cells(xml_path, operator):
             hsn = None
         cell = {
             'operator': operator,
-            'oss': oss,
+            'oss': 'Tele2',
             'bsc_id': None,
             'bsc_name': bsc_name,
             'site_name': site_names[cell_id],

@@ -24,4 +24,5 @@ def zte_main(technology):
     elif technology == 'GSM':
         zte_gsm_data = select_zte_data('gsm_cell')
         gsm_cells = parse_gsm_cells(zte_gsm_data)
-        return Sql.insert(gsm_cells, 'ZTE', technology)
+        return update_network_live(gsm_cells, oss, technology)
+    return '{tech} {oss} Fail'.format(tech=technology, oss=oss)

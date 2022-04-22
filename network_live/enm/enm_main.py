@@ -33,7 +33,6 @@ def enm_main(technology, truncate=False):
         lte_cells = parse_lte_cells(enm_lte_cells, enodeb_ids, node_ips)
         if lte_cells:
             return update_network_live(lte_cells, oss, technology)
-        return 'LTE ENM Fail'
     elif technology == 'WCDMA':
         enm_wcdma_cells = Enm.execute_enm_command('wcdma_cells')
         enm_rnc_ids = Enm.execute_enm_command('rnc_ids')
@@ -48,14 +47,14 @@ def enm_main(technology, truncate=False):
         )
         if wcdma_cells:
             return update_network_live(wcdma_cells, oss, technology)
-        return 'WCDMA ENM Fail'
     elif technology == 'GSM':
         enm_bsc = Enm.execute_enm_command('bsc_id')
         enm_sites = Enm.execute_enm_command('gsm_sites')
         enm_gsmcells = Enm.execute_enm_command('gsm_cells')
         enm_channel_group = Enm.execute_enm_command('channel_group')
         gsm_cells = parse_gsm_cells(enm_gsmcells, enm_bsc, enm_sites, enm_channel_group)
-        return Sql.insert(gsm_cells, 'ENM', technology, truncate)
+        if gsm_cells:
+            return update_network_live(gsm_cells, oss, technology)
     elif technology == 'NR':
         enm_nr_cells = Enm.execute_enm_command('nrcells')
         enm_nr_sectors = Enm.execute_enm_command('nr_sector_carrier')
@@ -63,3 +62,4 @@ def enm_main(technology, truncate=False):
         nr_ids = parse_node_parameter(enm_nr_ids, 'MeContext')
         nr_cells = parse_nr_cells(enm_nr_cells, enm_nr_sectors, nr_ids, node_ips)
         return Sql.insert(nr_cells, 'ENM', technology, truncate)
+    return '{tech} {oss} Fail'.format(tech=technology, oss=oss)
