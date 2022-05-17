@@ -158,10 +158,14 @@ def parse_huawei_xml(xml_path, sharing):
         cell_id = parse_tag_text('LocalCellId', element)
 
         if int(cell_id) in cellid_range:
+            if parse_tag_text('CellActiveState', element) == '1':
+                cell_state = 'UNLOCKED'
+            else:
+                cell_state = 'LOCKED'
             cell['cell_name'] = parse_tag_text('CellName', element)
             cell['cellId'] = cell_id
             cell['earfcndl'] = parse_tag_text('DlEarfcn', element)
-            cell['administrativeState'] = parse_tag_text('CellActiveState', element)
+            cell['administrativeState'] = cell_state
             cell['rachRootSequence'] = parse_tag_text('RootSequenceIdx', element)
             cell['physicalLayerCellId'] = parse_tag_text('PhyCellId', element)
             cell['qRxLevMin'] = qrxlevmin_data[cell_id]

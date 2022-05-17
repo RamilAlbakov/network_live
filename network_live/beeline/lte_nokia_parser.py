@@ -146,7 +146,10 @@ def parse_lncel_params(log_lines):
             if 'name="name"' in line:
                 cell['cell_name'] = parse_parameter_value(line)
             if 'name="administrativeState"' in line:
-                cell['administrativeState'] = parse_parameter_value(line)
+                if parse_parameter_value(line) == '1':
+                    cell['administrativeState'] = 'UNLOCKED'
+                else:
+                    cell['administrativeState'] = 'LOCKED'
             if 'name="eutraCelId"' in line:
                 cell['eci'] = parse_parameter_value(line)
             if 'name="phyCellId"' in line:

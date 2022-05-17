@@ -40,6 +40,7 @@ wcdma_insert_sql = """
         :UtranCellId,
         :localCellId,
         :uarfcnDl,
+        :uarfcnUl,
         :primaryScramblingCode,
         :LocationArea,
         :RoutingArea,
@@ -49,6 +50,7 @@ wcdma_insert_sql = """
         :maximumTransmissionPower,
         :IubLink,
         :MocnCellProfile,
+        :administrativeState,
         :ip_address,
         :vendor,
         :insert_date,
@@ -153,5 +155,7 @@ def update_network_live(cell_data, oss, technology):
                 cursor.execute(insert_sqls[technology], cell)
             connection.commit()
             return '{technology} {oss} Success'.format(technology=technology, oss=oss)
-    except:
+    except cx_Oracle.Error as err:
+        err_obj, = err.args
+        print(err_obj.message)
         return '{technology} {oss} Fail'.format(technology=technology, oss=oss)

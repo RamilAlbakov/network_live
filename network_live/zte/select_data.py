@@ -23,6 +23,7 @@ wcdma_cells_select = """
         USERLABEL,
         CID,
         UARFCNDL,
+        UARFCNUL,
         PRIMARYSCRAMBLINGCODE,
         LAC,
         RAC,

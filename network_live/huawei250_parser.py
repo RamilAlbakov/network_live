@@ -85,10 +85,12 @@ def parse_huawei_wcdma_cells(xml_path, operator):
         'MAXTXPOWER',
         'CELLID',
         'UARFCNDOWNLINK',
+        'UARFCNUPLINK',
         'PSCRAMBCODE',
         'LAC',
         'RAC',
         'SAC',
+        'ACTSTATUS',
     ]
     ucell_data = parse_moi_parameters(root, 'UCELL', ucell_params)
     cell_ids = ucell_data.keys()
@@ -99,6 +101,10 @@ def parse_huawei_wcdma_cells(xml_path, operator):
     wcdma_cells = []
 
     for cell_id in cell_ids:
+        if ucell_data[cell_id]['ACTSTATUS'] == '1':
+            cell_state = 'UNLOCKED'
+        else:
+            cell_state = 'LOCKED'
         cell = {
             'operator': operator,
             'oss': oss,
@@ -108,6 +114,7 @@ def parse_huawei_wcdma_cells(xml_path, operator):
             'UtranCellId': ucell_data[cell_id]['CELLNAME'],
             'localCellId': cell_id,
             'uarfcnDl': ucell_data[cell_id]['UARFCNDOWNLINK'],
+            'uarfcnUl': ucell_data[cell_id]['UARFCNUPLINK'],
             'primaryScramblingCode': ucell_data[cell_id]['PSCRAMBCODE'],
             'LocationArea': ucell_data[cell_id]['LAC'],
             'RoutingArea': ucell_data[cell_id]['RAC'],
@@ -117,6 +124,7 @@ def parse_huawei_wcdma_cells(xml_path, operator):
             'maximumTransmissionPower': ucell_data[cell_id]['MAXTXPOWER'],
             'IubLink': None,
             'MocnCellProfile': None,
+            'administrativeState': cell_state,
             'ip_address': None,
             'vendor': 'Huawei',
             'insert_date': Date.get_date('network_live'),
@@ -221,6 +229,10 @@ def parse_gsm_cells(xml_path, operator):
             hsn = all_magrp_attrs[cell_id]['HSN']
         except KeyError:
             hsn = None
+        if cell_attrs[cell_id]['ACTSTATUS'] == '1':
+            cell_state = 'ACTIVE'
+        else:
+            cell_state = 'HALTED'
         cell = {
             'operator': operator,
             'oss': 'Tele2',
@@ -236,7 +248,7 @@ def parse_gsm_cells(xml_path, operator):
             'hsn': hsn,
             'maio': None,
             'tch_freqs': ', '.join(trx_parameters[cell_id]['tch_freqs']),
-            'state': cell_attrs[cell_id]['ACTSTATUS'],
+            'state': cell_state,
             'vendor': 'Huawei',
             'insert_date': Date.get_date('network_live'),
         }

@@ -15,7 +15,8 @@ class Enm(object):
         'earfcndl',
         'latitude',
         'longitude',
-        'physicalLayerCellId',
+        'physicalLayerCellIdGroup',
+        'physicalLayerSubCellId',
         'qRxLevMin',
         'rachRootSequence',
         'tac',
@@ -25,6 +26,7 @@ class Enm(object):
         'UtranCellId',
         'localCellId',
         'uarfcnDl',
+        'uarfcnUl',
         'primaryScramblingCode',
         'locationAreaRef',
         'routingAreaRef',
@@ -34,6 +36,7 @@ class Enm(object):
         'maximumTransmissionPower',
         'iubLinkRef',
         'mocnCellProfileRef',
+        'administrativeState',
     ]
 
     gsmcell_params = [

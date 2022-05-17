@@ -41,6 +41,11 @@ def parse_lte(log_path):
             if row['Local tracking area ID'] != '2':
                 continue
 
+            if row['Cell admin state'] == 'CELL_UNBLOCK':
+                cell_state = 'UNLOCKED'
+            else:
+                cell_state = 'LOCKED'
+
             lte_cell = {
                 'oss': 'Tele2',
                 'subnetwork': 'Tele2',
@@ -58,7 +63,7 @@ def parse_lte(log_path):
             lte_cell['qRxLevMin'] = int(row['CELLSEL Minimum required RX level(2dBm)']) * 2
             lte_cell['latitude'] = None
             lte_cell['longitude'] = None
-            lte_cell['administrativeState'] = row['Cell admin state']
+            lte_cell['administrativeState'] = cell_state
             lte_cell['rachRootSequence'] = convert_string_to_num(row['Root sequence index'])
             lte_cell['physicalLayerCellId'] = row['Physical cell ID']
 

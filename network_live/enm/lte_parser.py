@@ -49,10 +49,17 @@ def parse_lte_cells(enm_lte_cells, enodeb_ids, ip_data):
             cell['cell_name'] = parse_mo_value(element_val, 'EUtranCellFDD')
         elif ' : ' in element_val:
             attr_name, attr_value = element_val.split(' : ')
-            cell[attr_name] = attr_value
-            if attr_name == 'tac':
+            if attr_name == 'physicalLayerCellIdGroup':
+                pci_group = int(attr_value)
+            elif attr_name == 'physicalLayerSubCellId':
+                cell['physicalLayerCellId'] = pci_group * 3 + int(attr_value)
+            elif attr_name == 'tac':
+                cell['tac'] = attr_value
                 cell['enodeb_id'] = enodeb_ids[cell['site_name']]
                 cell['eci'] = calculate_eci(cell['enodeb_id'], cell['cellId'])
                 cell['ip_address'] = ip_data[cell['site_name']]
                 lte_cells.append(cell)
+            else:
+                cell[attr_name] = attr_value
+    
     return lte_cells
