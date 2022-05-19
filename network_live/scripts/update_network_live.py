@@ -47,7 +47,7 @@ def main():
     zte_technologies = ['WCDMA', 'GSM']
     update_results += execute_main_func(zte_main, zte_technologies, 'ZTE')
 
-    beeline_technologies = ['LTE Huawei', 'LTE Nokia', 'WCDMA Huawei', 'WCDMA Nokia']
+    beeline_technologies = ['LTE Huawei', 'LTE Nokia', 'WCDMA Huawei', 'WCDMA Nokia', 'GSM Nokia']
     update_results += execute_main_func(beeline_main, beeline_technologies, 'Beeline')
 
     tele2_technologies = ['LTE', 'WCDMA', 'GSM']

@@ -8,6 +8,7 @@ from network_live.beeline.wcdma_nokia_parser import parse_nokia_wcdma_cells
 from network_live.download_logs import download_bee250_huawei_xml, download_ftp_logs
 from network_live.huawei250_parser import parse_huawei_wcdma_cells
 from network_live.sql import update_network_live
+from network_live.beeline.gsm_nokia_parser import parse_nokia_gsm_cells
 
 
 def beeline_main(technology):
@@ -35,11 +36,14 @@ def beeline_main(technology):
         lte_cells += parse_lte_nokia(logs_path)
         return update_network_live(lte_cells, 'Beeline Nokia', 'LTE')
     elif technology == 'WCDMA Nokia':
-        download_ftp_logs('beeline_nokia_wcdma')
-        nokia_wcdma_cells = parse_nokia_wcdma_cells(logs_path)
         download_ftp_logs('beeline_nokia_250', is_unzip=False)
+        nokia_wcdma_cells = parse_nokia_wcdma_cells(logs_path)
+        download_ftp_logs('beeline_nokia_wcdma')
         nokia_wcdma_cells += parse_nokia_wcdma_cells(logs_path)
         return update_network_live(nokia_wcdma_cells, 'Beeline Nokia', 'WCDMA')
+    elif technology == 'GSM Nokia':
+        nokia_gsm_cells = parse_nokia_gsm_cells(logs_path)
+        return update_network_live(nokia_gsm_cells, 'Beeline Nokia', 'GSM')
     elif technology == 'WCDMA Huawei':
         download_bee250_huawei_xml(logs_path)
         log_name = os.listdir(logs_path)[0]
