@@ -64,6 +64,20 @@ def parse_wcdma_cells(zte_cell_data, zte_rnc_data):
     return wcdma_cells
 
 
+def get_gsm_cell(cell_name, bsc_name, gsm_cells):
+    """
+    Get gsm cell by cell name and bsc name from gsm_cells.
+
+    Args:
+        cell_name: string
+        bsc_name: string
+        gsm_cells: list of dicts
+    
+    Returns:
+        gsm cell dict or None
+    """
+
+
 def parse_gsm_cells(zte_gsm_data):
     """
     Parse ZTE GSM cell data.
@@ -75,6 +89,7 @@ def parse_gsm_cells(zte_gsm_data):
         list of dicts
     """
     gsm_cells = []
+    bcch_trx_cells = []
     for gcell in set(zte_gsm_data):
         (
             bsc_id,
@@ -107,5 +122,17 @@ def parse_gsm_cells(zte_gsm_data):
             'vendor': 'ZTE',
             'insert_date': Date.get_date('network_live'),
         }
-        gsm_cells.append(cell)
+        if tch_freqs:
+            gsm_cells.append(cell)
+        else:
+            bcch_trx_cells.append(cell)
+    
+    for bcch_cell in bcch_trx_cells:
+        one_trx_cells = list(filter(
+            lambda cell: cell['cell_name'] == bcch_cell['cell_name'] and cell['bsc_name'] == bcch_cell['bsc_name'],
+            gsm_cells,
+        ))
+        if not one_trx_cells:
+            gsm_cells.append(bcch_cell)
+    
     return gsm_cells
