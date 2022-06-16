@@ -24,6 +24,8 @@ def tele2_main(technology):
         download_ftp_logs('tele2_lte')
         lte_log_path = '{logs_path}/tele2_lte_log.csv'.format(logs_path=logs_path)
         lte_cells = parse_lte(lte_log_path)
+        download_ftp_logs('tele2_lte_250')
+        lte_cells += parse_lte(lte_log_path)
         return update_network_live(lte_cells, oss, technology)
     elif technology == 'WCDMA':
         download_ftp_logs('tele2_wcdma')
