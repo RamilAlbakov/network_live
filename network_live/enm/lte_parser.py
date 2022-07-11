@@ -61,5 +61,5 @@ def parse_lte_cells(enm_lte_cells, enodeb_ids, ip_data):
                 lte_cells.append(cell)
             else:
                 cell[attr_name] = attr_value
-    
+
     return lte_cells

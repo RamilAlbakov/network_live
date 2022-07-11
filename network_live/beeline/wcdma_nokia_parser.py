@@ -1,8 +1,14 @@
 """Parse Beeline Nokia WCDMA xml file for network live."""
 
 from defusedxml import ElementTree
+from network_live.beeline.nokia_utils import (
+    get_xml_path,
+    make_tag,
+    parse_cell_parameter,
+    parse_nodes,
+    parse_sites,
+)
 from network_live.date import Date
-from network_live.beeline.nokia_utils import make_tag, parse_sites, parse_nodes, parse_cell_parameter, get_xml_path
 
 
 def parse_nokia_wcdma_cells(logs_path):
@@ -38,6 +44,7 @@ def parse_nokia_wcdma_cells(logs_path):
         else:
             cell_state = 'LOCKED'
         uarfcndl = parse_cell_parameter(cell_tag, 'UARFCN')
+        cell_id = parse_cell_parameter(cell_tag, 'CId')
         cell = {
             'operator': 'Beeline',
             'oss': 'Beeline Nokia',
@@ -45,7 +52,8 @@ def parse_nokia_wcdma_cells(logs_path):
             'rnc_name': rnc_name,
             'site_name': sites[site_id],
             'UtranCellId': parse_cell_parameter(cell_tag, 'name'),
-            'localCellId': parse_cell_parameter(cell_tag, 'CId'),
+            'cId': cell_id,
+            'localCellId': cell_id,
             'uarfcnDl': uarfcndl,
             'uarfcnUl': uarfcnul[uarfcndl],
             'primaryScramblingCode': parse_cell_parameter(cell_tag, 'PriScrCode'),

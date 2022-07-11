@@ -22,6 +22,7 @@ wcdma_cells_select = """
         NODEBNAME,
         USERLABEL,
         CID,
+        LOCALCELLID,
         UARFCNDL,
         UARFCNUL,
         PRIMARYSCRAMBLINGCODE,

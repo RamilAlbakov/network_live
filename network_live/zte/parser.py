@@ -24,6 +24,7 @@ def parse_wcdma_cells(zte_cell_data, zte_rnc_data):
             nodeb_name,
             cell_name,
             cell_id,
+            local_cell_id,
             uarfcndl,
             uarfcnul,
             psc,
@@ -43,7 +44,8 @@ def parse_wcdma_cells(zte_cell_data, zte_rnc_data):
             'rnc_name': rnc_names[rnc_id],
             'site_name': nodeb_name.split(' ')[0],
             'UtranCellId': cell_name,
-            'localCellId': cell_id,
+            'cId': cell_id,
+            'localCellId': local_cell_id,
             'uarfcnDl': uarfcndl,
             'uarfcnUl': uarfcnul,
             'primaryScramblingCode': psc,
@@ -62,20 +64,6 @@ def parse_wcdma_cells(zte_cell_data, zte_rnc_data):
         }
         wcdma_cells.append(cell)
     return wcdma_cells
-
-
-def get_gsm_cell(cell_name, bsc_name, gsm_cells):
-    """
-    Get gsm cell by cell name and bsc name from gsm_cells.
-
-    Args:
-        cell_name: string
-        bsc_name: string
-        gsm_cells: list of dicts
-    
-    Returns:
-        gsm cell dict or None
-    """
 
 
 def parse_gsm_cells(zte_gsm_data):
@@ -126,7 +114,7 @@ def parse_gsm_cells(zte_gsm_data):
             gsm_cells.append(cell)
         else:
             bcch_trx_cells.append(cell)
-    
+
     for bcch_cell in bcch_trx_cells:
         one_trx_cells = list(filter(
             lambda cell: cell['cell_name'] == bcch_cell['cell_name'] and cell['bsc_name'] == bcch_cell['bsc_name'],
@@ -134,5 +122,5 @@ def parse_gsm_cells(zte_gsm_data):
         ))
         if not one_trx_cells:
             gsm_cells.append(bcch_cell)
-    
+
     return gsm_cells

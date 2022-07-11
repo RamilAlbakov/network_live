@@ -112,6 +112,7 @@ def parse_huawei_wcdma_cells(xml_path, operator):
             'rnc_name': rnc_name,
             'site_name': ucell_data[cell_id]['NODEBNAME'],
             'UtranCellId': ucell_data[cell_id]['CELLNAME'],
+            'cId': cell_id,
             'localCellId': cell_id,
             'uarfcnDl': ucell_data[cell_id]['UARFCNDOWNLINK'],
             'uarfcnUl': ucell_data[cell_id]['UARFCNUPLINK'],

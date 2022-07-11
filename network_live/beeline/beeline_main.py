@@ -2,13 +2,13 @@
 
 import os
 
+from network_live.beeline.gsm_nokia_parser import parse_nokia_gsm_cells
 from network_live.beeline.huawei_parser import parse_lte_huawei
 from network_live.beeline.lte_nokia_parser import parse_lte_nokia
 from network_live.beeline.wcdma_nokia_parser import parse_nokia_wcdma_cells
 from network_live.download_logs import download_bee250_huawei_xml, download_ftp_logs
 from network_live.huawei250_parser import parse_huawei_wcdma_cells
 from network_live.sql import update_network_live
-from network_live.beeline.gsm_nokia_parser import parse_nokia_gsm_cells
 
 
 def beeline_main(technology):

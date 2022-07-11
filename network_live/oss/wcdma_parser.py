@@ -158,7 +158,7 @@ def parse_data_utran_cell(utran_cell_tag):
 
     Args:
         utran_cell_tag: xml tag object
-    
+
     Returns:
         tuple
     """
@@ -166,13 +166,13 @@ def parse_data_utran_cell(utran_cell_tag):
     administrative_state = ''
     for mocn_tag in utran_cell_tag.iter(make_tag('mocnCellProfileRef', es_ns)):
         mocn_cell_profile = mocn_tag.text
-    
+
     for state_tag in utran_cell_tag.iter(make_tag('administrativeState', es_ns)):
         if state_tag.text == '1':
             administrative_state = 'UNLOCKED'
         else:
             administrative_state = 'LOCKED'
-    
+
     return (mocn_cell_profile, administrative_state)
 
 
@@ -253,7 +253,7 @@ def parse_wcdma_cells(xml_path, enm_sites, enm_ips):
         for utran_cell_tag in rnc_tag.iter(make_tag('UtranCell', un_ns)):
             iub_link = parse_iub_link(utran_cell_tag)
             rbs_id = rbs_ids[iub_link]
-            mocn_cell_profile, administrative_state = parse_data_utran_cell(utran_cell_tag)           
+            mocn_cell_profile, administrative_state = parse_data_utran_cell(utran_cell_tag)
             cell = {
                 'operator': 'Kcell',
                 'oss': 'OSS',
@@ -261,6 +261,7 @@ def parse_wcdma_cells(xml_path, enm_sites, enm_ips):
                 'rnc_name': rnc_name,
                 'site_name': get_site_name(sites, rbs_id),
                 'UtranCellId': utran_cell_tag.get(id_attr),
+                'cId': parse_attributes_value(utran_cell_tag, 'cId'),
                 'localCellId': parse_attributes_value(utran_cell_tag, 'localCellId'),
                 'uarfcnDl': parse_attributes_value(utran_cell_tag, 'uarfcnDl'),
                 'uarfcnUl': parse_attributes_value(utran_cell_tag, 'uarfcnUl'),

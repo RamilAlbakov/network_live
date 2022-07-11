@@ -1,8 +1,14 @@
 """Parse Beeline Nokia GSM xml file for network live."""
 
 from defusedxml import ElementTree
+from network_live.beeline.nokia_utils import (
+    get_xml_path,
+    make_tag,
+    parse_cell_parameter,
+    parse_nodes,
+    parse_sites,
+)
 from network_live.date import Date
-from network_live.beeline.nokia_utils import make_tag, parse_sites, parse_nodes, get_xml_path, parse_cell_parameter
 
 
 def parse_trx_params(root):
@@ -11,7 +17,7 @@ def parse_trx_params(root):
 
     Args:
         root: xml root tag object
-    
+
     Returns:
         dict
     """
@@ -36,11 +42,11 @@ def parse_trx_params(root):
 
 def parse_nokia_gsm_cells(logs_path):
     """
-    Parse GSM cells from Nokia xml file
+    Parse GSM cells from Nokia xml file.
 
     Args:
         logs_path: string
-    
+
     Returns:
         list of dicts
     """

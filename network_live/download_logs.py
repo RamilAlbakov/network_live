@@ -122,7 +122,9 @@ def download_ftp_logs(operator, is_unzip=True):
 
     ftp_paths = {
         'tele2_lte': '/reporter/tele2/mocn/{date}/Config_result_data_{date}.zip'.format(date=date),
-        'tele2_lte_250': '/reporter/tele2/250plus/{date}/Config_result_data_{date}.zip'.format(date=date),
+        'tele2_lte_250': '/reporter/tele2/250plus/{date}/Config_result_data_{date}.zip'.format(
+            date=date,
+        ),
         'tele2_wcdma': '/reporter/tele2/250plus/{date}/UNBI_Conf_Export_XML_RT_{date}.zip'.format(
             date=date,
         ),

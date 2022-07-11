@@ -1,4 +1,4 @@
-"""Present some common functions for Nokia WCDMA and GSM"""
+"""Present some common functions for Nokia WCDMA and GSM."""
 
 import os
 
@@ -33,7 +33,7 @@ def parse_sites(root, technology):
         site_class = 'WBTS'
     elif technology == 'GSM':
         site_class = 'BCF'
-    
+
     for site_tag in root.iter(make_tag('managedObject')):
         if site_tag.get('class') != site_class:
             continue
@@ -52,7 +52,7 @@ def parse_nodes(cell_tag):
 
     Args:
         cell_tag: xml tag object
-    
+
     Returns:
         tuple
     """
