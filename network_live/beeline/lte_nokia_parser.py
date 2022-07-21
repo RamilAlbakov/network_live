@@ -4,6 +4,7 @@ import os
 import re
 
 from network_live.date import Date
+from network_live.physical_data import add_physical_params
 
 
 def read_file(path):
@@ -161,12 +162,13 @@ def parse_lncel_params(log_lines):
     return lncel_params
 
 
-def parse_nokia_xml(xml_path):
+def parse_nokia_xml(xml_path, atoll_data):
     """
     Parse all necessary parameters from xml file.
 
     Args:
         xml_path: string
+        atoll_data: dict
 
     Returns:
         list of dicts
@@ -178,6 +180,8 @@ def parse_nokia_xml(xml_path):
     sib_params = parse_sib_params(log_lines)
     lncel_params = parse_lncel_params(log_lines)
 
+    lte_nokia_cells = []
+
     for lncel in lncel_params:
         lncel['enodeb_id'] = lnbts_params['enodeb_id']
         lncel['site_name'] = lnbts_params['site_name']
@@ -188,21 +192,22 @@ def parse_nokia_xml(xml_path):
         lncel['qRxLevMin'] = sib_params[cell_id]
         lncel['subnetwork'] = 'Beeline'
         lncel['vendor'] = 'Nokia'
-        lncel['latitude'] = None
-        lncel['longitude'] = None
         lncel['ip_address'] = None
         lncel['insert_date'] = Date.get_date('network_live')
         lncel['oss'] = 'Beeline Nokia'
+        lte_nokia_cells.append(
+            add_physical_params(atoll_data, lncel),
+        )
+    return lte_nokia_cells
 
-    return lncel_params
 
-
-def parse_lte_nokia(logs_path):
+def parse_lte_nokia(logs_path, atoll_data):
     """
     Parse all necessary parameters from all xml files.
 
     Args:
         logs_path: string
+        atoll_data: dict
 
     Returns:
         list of dicts
@@ -210,6 +215,6 @@ def parse_lte_nokia(logs_path):
     cell_data = []
     for log in os.listdir(logs_path):
         xml_path = '{logs_path}/{log}'.format(logs_path=logs_path, log=log)
-        cell_data += parse_nokia_xml(xml_path)
+        cell_data += parse_nokia_xml(xml_path, atoll_data)
 
     return cell_data

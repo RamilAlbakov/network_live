@@ -11,12 +11,13 @@ from network_live.huawei250_parser import parse_huawei_wcdma_cells
 from network_live.sql import update_network_live
 
 
-def beeline_main(technology):
+def beeline_main(technology, atoll_data):
     """
     Update network live with Beeline cells.
 
     Args:
         technology: string
+        atoll_data: dict
 
     Returns:
         string
@@ -25,28 +26,32 @@ def beeline_main(technology):
 
     if technology == 'LTE Huawei':
         download_ftp_logs('beeline_huawei')
-        lte_cells = parse_lte_huawei(logs_path, 'moran')
+        lte_cells = parse_lte_huawei(logs_path, 'moran', atoll_data)
         download_ftp_logs('beeline_huawei_mocn')
-        lte_cells += parse_lte_huawei(logs_path, 'mocn')
+        lte_cells += parse_lte_huawei(logs_path, 'mocn', atoll_data)
         return update_network_live(lte_cells, 'Beeline Huawei', 'LTE')
     elif technology == 'LTE Nokia':
         download_ftp_logs('beeline_nokia_moran')
-        lte_cells = parse_lte_nokia(logs_path)
+        lte_cells = parse_lte_nokia(logs_path, atoll_data)
         download_ftp_logs('beeline_nokia_mocn')
-        lte_cells += parse_lte_nokia(logs_path)
+        lte_cells += parse_lte_nokia(logs_path, atoll_data)
         return update_network_live(lte_cells, 'Beeline Nokia', 'LTE')
     elif technology == 'WCDMA Nokia':
         download_ftp_logs('beeline_nokia_250', is_unzip=False)
-        nokia_wcdma_cells = parse_nokia_wcdma_cells(logs_path)
+        nokia_wcdma_cells = parse_nokia_wcdma_cells(logs_path, atoll_data)
+
+        download_ftp_logs('beeline_nokia_250_Kok', is_unzip=False)
+        nokia_wcdma_cells += parse_nokia_wcdma_cells(logs_path, atoll_data)
+
         download_ftp_logs('beeline_nokia_wcdma')
-        nokia_wcdma_cells += parse_nokia_wcdma_cells(logs_path)
+        nokia_wcdma_cells += parse_nokia_wcdma_cells(logs_path, atoll_data)
         return update_network_live(nokia_wcdma_cells, 'Beeline Nokia', 'WCDMA')
     elif technology == 'GSM Nokia':
-        nokia_gsm_cells = parse_nokia_gsm_cells(logs_path)
+        nokia_gsm_cells = parse_nokia_gsm_cells(logs_path, atoll_data)
         return update_network_live(nokia_gsm_cells, 'Beeline Nokia', 'GSM')
     elif technology == 'WCDMA Huawei':
         download_bee250_huawei_xml(logs_path)
         log_name = os.listdir(logs_path)[0]
         xml_path = '{logs_path}/{log}'.format(logs_path=logs_path, log=log_name)
-        huawei_wcdma_cells = parse_huawei_wcdma_cells(xml_path, 'Beeline')
+        huawei_wcdma_cells = parse_huawei_wcdma_cells(xml_path, 'Beeline', atoll_data)
         return update_network_live(huawei_wcdma_cells, 'Beeline Huawei', 'WCDMA')

@@ -9,6 +9,7 @@ from network_live.beeline.nokia_utils import (
     parse_sites,
 )
 from network_live.date import Date
+from network_live.physical_data import add_physical_params
 
 
 def parse_trx_params(root):
@@ -40,12 +41,13 @@ def parse_trx_params(root):
     return trxs
 
 
-def parse_nokia_gsm_cells(logs_path):
+def parse_nokia_gsm_cells(logs_path, atoll_data):
     """
     Parse GSM cells from Nokia xml file.
 
     Args:
         logs_path: string
+        atoll_data: dict
 
     Returns:
         list of dicts
@@ -83,5 +85,7 @@ def parse_nokia_gsm_cells(logs_path):
             'insert_date': Date.get_date('network_live'),
             'oss': 'Beeline Nokia',
         }
-        gsm_cells.append(cell)
+        gsm_cells.append(
+            add_physical_params(atoll_data, cell),
+        )
     return gsm_cells

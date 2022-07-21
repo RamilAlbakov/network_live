@@ -3,6 +3,7 @@
 
 from defusedxml import ElementTree
 from network_live.date import Date
+from network_live.physical_data import add_physical_params
 
 es_ns = '{EricssonSpecificAttributes.18.29.xsd}'
 xn_ns = '{genericNrm.xsd}'
@@ -226,7 +227,7 @@ def parse_iub_link(utran_cell_tag):
     return iub_link_ref.split('=')[-1]
 
 
-def parse_wcdma_cells(xml_path, enm_sites, enm_ips):
+def parse_wcdma_cells(xml_path, enm_sites, enm_ips, atoll_data):
     """
     Parse all necessary wcdma cell parameters.
 
@@ -234,6 +235,7 @@ def parse_wcdma_cells(xml_path, enm_sites, enm_ips):
         xml_path: string
         enm_sites: dict
         enm_ips: dict
+        atoll_data: dict
 
     Returns:
         list of dict
@@ -260,7 +262,7 @@ def parse_wcdma_cells(xml_path, enm_sites, enm_ips):
                 'rnc_id': rnc_id,
                 'rnc_name': rnc_name,
                 'site_name': get_site_name(sites, rbs_id),
-                'UtranCellId': utran_cell_tag.get(id_attr),
+                'cell_name': utran_cell_tag.get(id_attr),
                 'cId': parse_attributes_value(utran_cell_tag, 'cId'),
                 'localCellId': parse_attributes_value(utran_cell_tag, 'localCellId'),
                 'uarfcnDl': parse_attributes_value(utran_cell_tag, 'uarfcnDl'),
@@ -285,5 +287,7 @@ def parse_wcdma_cells(xml_path, enm_sites, enm_ips):
                 'vendor': 'Ericsson',
                 'insert_date': Date.get_date('network_live'),
             }
-            wcdma_cells.append(cell)
+            wcdma_cells.append(
+                add_physical_params(atoll_data, cell),
+            )
     return wcdma_cells

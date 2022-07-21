@@ -2,6 +2,7 @@
 
 from defusedxml import ElementTree
 from network_live.date import Date
+from network_live.physical_data import add_physical_params
 
 
 def make_tag(tag_name):
@@ -59,13 +60,14 @@ def parse_moi_parameters(root, attribute_type, needed_params):
     return moi_parameters
 
 
-def parse_huawei_wcdma_cells(xml_path, operator):
+def parse_huawei_wcdma_cells(xml_path, operator, atoll_data):
     """
     Parse wcdma cells data.
 
     Args:
         xml_path: string
         operator: string
+        atoll_data: dict
 
     Returns:
         list of dicts
@@ -111,7 +113,7 @@ def parse_huawei_wcdma_cells(xml_path, operator):
             'rnc_id': ucell_data[cell_id]['LOGICRNCID'],
             'rnc_name': rnc_name,
             'site_name': ucell_data[cell_id]['NODEBNAME'],
-            'UtranCellId': ucell_data[cell_id]['CELLNAME'],
+            'cell_name': ucell_data[cell_id]['CELLNAME'],
             'cId': cell_id,
             'localCellId': cell_id,
             'uarfcnDl': ucell_data[cell_id]['UARFCNDOWNLINK'],
@@ -130,7 +132,9 @@ def parse_huawei_wcdma_cells(xml_path, operator):
             'vendor': 'Huawei',
             'insert_date': Date.get_date('network_live'),
         }
-        wcdma_cells.append(cell)
+        wcdma_cells.append(
+            add_physical_params(atoll_data, cell),
+        )
 
     return wcdma_cells
 
@@ -192,13 +196,14 @@ def parse_site_names(root):
     return site_names
 
 
-def parse_gsm_cells(xml_path, operator):
+def parse_gsm_cells(xml_path, operator, atoll_data):
     """
     Parse GSM xml data from Huawei xml files.
 
     Args:
         xml_path: string
         operator: string
+        atoll_data: dict
 
     Returns:
         list of dicts
@@ -253,5 +258,7 @@ def parse_gsm_cells(xml_path, operator):
             'vendor': 'Huawei',
             'insert_date': Date.get_date('network_live'),
         }
-        gsm_cells.append(cell)
+        gsm_cells.append(
+            add_physical_params(atoll_data, cell),
+        )
     return gsm_cells

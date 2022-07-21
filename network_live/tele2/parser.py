@@ -4,6 +4,7 @@
 import csv
 
 from network_live.date import Date
+from network_live.physical_data import add_physical_params
 
 
 def convert_string_to_num(string_value):
@@ -24,12 +25,13 @@ def convert_string_to_num(string_value):
     return num_value
 
 
-def parse_lte(log_path):
+def parse_lte(log_path, atoll_data):
     """
     Parse lte cells shared by Tele2.
 
     Args:
         log_path: string
+        atoll_data: dict
 
     Returns:
         list of dicts
@@ -67,5 +69,7 @@ def parse_lte(log_path):
             lte_cell['rachRootSequence'] = convert_string_to_num(row['Root sequence index'])
             lte_cell['physicalLayerCellId'] = row['Physical cell ID']
 
-            lte_cells.append(lte_cell)
+            lte_cells.append(
+                add_physical_params(atoll_data, lte_cell),
+            )
     return lte_cells

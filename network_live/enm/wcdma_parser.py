@@ -2,6 +2,7 @@
 
 from network_live.date import Date
 from network_live.enm.parser_utils import parse_mo_value, parse_node_parameter
+from network_live.physical_data import add_physical_params
 
 
 def parse_site_names(enm_site_names, enm_iublink_data):
@@ -53,7 +54,7 @@ def parse_parameter(parameter_string):
     return (attr_name, attr_value)
 
 
-def parse_wcdma_cells(enm_wcdma_cells, enm_rnc_ids, enm_iublink_data, enm_site_names, node_ips):
+def parse_wcdma_cells(enm_wcdma_cells, enm_rnc_ids, enm_iublink_data, enm_site_names, node_ips, atoll_data):
     """
     Parse utrancell parameters from enm data.
 
@@ -63,6 +64,7 @@ def parse_wcdma_cells(enm_wcdma_cells, enm_rnc_ids, enm_iublink_data, enm_site_n
         enm_iublink_data: enmscripting ElementGroup
         enm_site_names: enmscripting ElementGroup
         node_ips: dict
+        atoll_data: dict
 
     Returns:
         list of dicts
@@ -81,6 +83,7 @@ def parse_wcdma_cells(enm_wcdma_cells, enm_rnc_ids, enm_iublink_data, enm_site_n
                 'operator': 'Kcell',
                 'oss': 'ENM',
                 'rnc_name': parse_mo_value(element_val, 'MeContext'),
+                'cell_name': parse_mo_value(element_val, 'UtranCell'),
                 'vendor': 'Ericsson',
                 'insert_date': Date.get_date('network_live'),
             }
@@ -94,5 +97,7 @@ def parse_wcdma_cells(enm_wcdma_cells, enm_rnc_ids, enm_iublink_data, enm_site_n
                     cell['ip_address'] = node_ips[cell['site_name']]
                 except KeyError:
                     cell['ip_address'] = None
-                wcdma_cells.append(cell)
+                wcdma_cells.append(
+                    add_physical_params(atoll_data, cell),
+                )
     return wcdma_cells

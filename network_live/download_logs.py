@@ -140,6 +140,10 @@ def download_ftp_logs(operator, is_unzip=True):
             bee250_path=bee250_path,
             date=date,
         ),
+        'beeline_nokia_250_Kok': '{bee250_path}/{date}/UMTS_530102_Kokshetau_N_{date}.xml'.format(
+            bee250_path=bee250_path,
+            date=date,
+        ),
     }
 
     remote_path = ftp_paths[operator]

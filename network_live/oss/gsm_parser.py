@@ -1,6 +1,7 @@
 """Parse GSM cell data from OSS txt file."""
 
 from network_live.date import Date
+from network_live.physical_data import add_physical_params
 
 
 def parse_hsn(gsm_params, line):
@@ -65,12 +66,13 @@ def get_parameter_value(parameter_name, params_list, line):
     return None if parameter_value == 'NULL' else parameter_value
 
 
-def parse_gsm_cells(log_path):
+def parse_gsm_cells(log_path, atoll_data):
     """
     Parse GSM cell data from OSS txt log file.
 
     Args:
         log_path: string
+        atoll_data: dict
 
     Returns:
         list of dicts
@@ -103,5 +105,7 @@ def parse_gsm_cells(log_path):
             'vendor': 'Ericsson',
             'insert_date': Date.get_date('network_live'),
         }
-        gsm_cells.append(cell)
+        gsm_cells.append(
+            add_physical_params(atoll_data, cell),
+        )
     return gsm_cells

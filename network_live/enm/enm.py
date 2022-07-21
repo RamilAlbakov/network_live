@@ -23,7 +23,6 @@ class Enm(object):
     ]
 
     utrancell_params = [
-        'UtranCellId',
         'cId',
         'localCellId',
         'uarfcnDl',

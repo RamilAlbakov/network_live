@@ -10,12 +10,13 @@ from network_live.oss.wcdma_parser import parse_wcdma_cells
 from network_live.sql import update_network_live
 
 
-def oss_main(technology):
+def oss_main(technology, atoll_data):
     """
     Update network live with OSS cells.
 
     Args:
         technology: string
+        atoll_data: dict
 
     Returns:
         string
@@ -32,14 +33,14 @@ def oss_main(technology):
         if 'Export has succeeded' in bcg_result:
             download_oss_logs(technology)
             logs_path = 'logs/oss/oss_utrancells.xml'
-            wcdma_cells = parse_wcdma_cells(logs_path, enm_sites, enm_ips)
+            wcdma_cells = parse_wcdma_cells(logs_path, enm_sites, enm_ips, atoll_data)
             return update_network_live(wcdma_cells, oss, technology)
     elif technology == 'GSM':
         cna_result = collect_oss_logs(technology)
         if '100%' in cna_result:
             download_oss_logs(technology)
             logs_path = 'logs/oss/network_live_gsm_export.txt'
-            gsm_cells = parse_gsm_cells(logs_path)
+            gsm_cells = parse_gsm_cells(logs_path, atoll_data)
             return update_network_live(gsm_cells, oss, technology)
 
     return '{technology} {oss} Fail'.format(technology=technology, oss=oss)

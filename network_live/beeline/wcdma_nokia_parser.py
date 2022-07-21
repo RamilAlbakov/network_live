@@ -9,14 +9,16 @@ from network_live.beeline.nokia_utils import (
     parse_sites,
 )
 from network_live.date import Date
+from network_live.physical_data import add_physical_params
 
 
-def parse_nokia_wcdma_cells(logs_path):
+def parse_nokia_wcdma_cells(logs_path, atoll_data):
     """
     Parse WCDMA cells from Nokia xml file.
 
     Args:
         logs_path: string
+        atoll_data: dict
 
     Returns:
         list of dicts
@@ -51,7 +53,7 @@ def parse_nokia_wcdma_cells(logs_path):
             'rnc_id': rnc_id,
             'rnc_name': rnc_name,
             'site_name': sites[site_id],
-            'UtranCellId': parse_cell_parameter(cell_tag, 'name'),
+            'cell_name': parse_cell_parameter(cell_tag, 'name'),
             'cId': cell_id,
             'localCellId': cell_id,
             'uarfcnDl': uarfcndl,
@@ -70,5 +72,7 @@ def parse_nokia_wcdma_cells(logs_path):
             'vendor': 'Nokia',
             'insert_date': Date.get_date('network_live'),
         }
-        wcdma_cells.append(cell)
+        wcdma_cells.append(
+            add_physical_params(atoll_data, cell),
+        )
     return wcdma_cells

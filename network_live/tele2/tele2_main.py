@@ -8,12 +8,13 @@ from network_live.sql import update_network_live
 from network_live.tele2.parser import parse_lte
 
 
-def tele2_main(technology):
+def tele2_main(technology, atoll_data):
     """
     Update network live with Tele2 cells.
 
     Args:
         technology: string
+        atoll_data: dict
 
     Returns:
         string
@@ -23,9 +24,9 @@ def tele2_main(technology):
     if technology == 'LTE':
         download_ftp_logs('tele2_lte')
         lte_log_path = '{logs_path}/tele2_lte_log.csv'.format(logs_path=logs_path)
-        lte_cells = parse_lte(lte_log_path)
+        lte_cells = parse_lte(lte_log_path, atoll_data)
         download_ftp_logs('tele2_lte_250')
-        lte_cells += parse_lte(lte_log_path)
+        lte_cells += parse_lte(lte_log_path, atoll_data)
         return update_network_live(lte_cells, oss, technology)
     elif technology == 'WCDMA':
         download_ftp_logs('tele2_wcdma')
@@ -34,7 +35,7 @@ def tele2_main(technology):
             logs_path=logs_path,
             log=log_name,
         )
-        wcdma_cells = parse_huawei_wcdma_cells(wcdma_log_path, 'Tele2')
+        wcdma_cells = parse_huawei_wcdma_cells(wcdma_log_path, 'Tele2', atoll_data)
         return update_network_live(wcdma_cells, oss, technology)
     elif technology == 'GSM':
         download_ftp_logs('tele2_gsm')
@@ -43,6 +44,6 @@ def tele2_main(technology):
             logs_path=logs_path,
             log=log_name,
         )
-        gsm_cells = parse_gsm_cells(gsm_log_path, 'Tele2')
+        gsm_cells = parse_gsm_cells(gsm_log_path, 'Tele2', atoll_data)
         return update_network_live(gsm_cells, oss, technology)
     return '{tech} {oss} Fail'.format(tech=technology, oss=oss)

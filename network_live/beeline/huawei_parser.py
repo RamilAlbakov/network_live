@@ -4,6 +4,7 @@ import os
 
 from defusedxml import ElementTree
 from network_live.date import Date
+from network_live.physical_data import add_physical_params
 
 
 def make_tag(tag):
@@ -121,13 +122,14 @@ def parse_site_name(root):
     return site_name
 
 
-def parse_huawei_xml(xml_path, sharing):
+def parse_huawei_xml(xml_path, sharing, atoll_data):
     """
     Parse xml file.
 
     Args:
         xml_path: string
         sharing: string
+        atoll_data: dict
 
     Returns:
         dict
@@ -151,8 +153,6 @@ def parse_huawei_xml(xml_path, sharing):
             'oss': 'Beeline Huawei',
             'subnetwork': 'Beeline',
             'vendor': 'Huawei',
-            'latitude': None,
-            'longitude': None,
             'insert_date': Date.get_date('network_live'),
         }
         cell_id = parse_tag_text('LocalCellId', element)
@@ -162,6 +162,7 @@ def parse_huawei_xml(xml_path, sharing):
                 cell_state = 'UNLOCKED'
             else:
                 cell_state = 'LOCKED'
+
             cell['cell_name'] = parse_tag_text('CellName', element)
             cell['cellId'] = cell_id
             cell['earfcndl'] = parse_tag_text('DlEarfcn', element)
@@ -175,18 +176,21 @@ def parse_huawei_xml(xml_path, sharing):
             cell['site_name'] = parse_site_name(root)
             cell['eci'] = int(enodeb_id) * eci_factor + int(cell_id)
 
-            eutrancells.append(cell)
+            eutrancells.append(
+                add_physical_params(atoll_data, cell),
+            )
 
     return eutrancells
 
 
-def parse_lte_huawei(logs_path, sharing):
+def parse_lte_huawei(logs_path, sharing, atoll_data):
     """
     Parse Beeline Huawei xml logs.
 
     Args:
         logs_path: string
         sharing: string
+        atoll_data: sict
 
     Returns:
         list of dicts
@@ -194,6 +198,6 @@ def parse_lte_huawei(logs_path, sharing):
     cell_data = []
     for log in os.listdir(logs_path):
         xml_path = '{logs_path}/{log}'.format(logs_path=logs_path, log=log)
-        cell_data += parse_huawei_xml(xml_path, sharing)
+        cell_data += parse_huawei_xml(xml_path, sharing, atoll_data)
 
     return cell_data

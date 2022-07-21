@@ -1,15 +1,17 @@
 """Parse ZTE cell data."""
 
 from network_live.date import Date
+from network_live.physical_data import add_physical_params
 
 
-def parse_wcdma_cells(zte_cell_data, zte_rnc_data):
+def parse_wcdma_cells(zte_cell_data, zte_rnc_data, atoll_data):
     """
     Parse ZTE cell data.
 
     Args:
         zte_cell_data: list of tuples
         zte_rnc_data: list of tuples
+        atoll_data: dict
 
     Returns:
         list of dicts
@@ -43,7 +45,7 @@ def parse_wcdma_cells(zte_cell_data, zte_rnc_data):
             'rnc_id': rnc_id,
             'rnc_name': rnc_names[rnc_id],
             'site_name': nodeb_name.split(' ')[0],
-            'UtranCellId': cell_name,
+            'cell_name': cell_name,
             'cId': cell_id,
             'localCellId': local_cell_id,
             'uarfcnDl': uarfcndl,
@@ -62,16 +64,19 @@ def parse_wcdma_cells(zte_cell_data, zte_rnc_data):
             'vendor': 'ZTE',
             'insert_date': Date.get_date('network_live'),
         }
-        wcdma_cells.append(cell)
+        wcdma_cells.append(
+            add_physical_params(atoll_data, cell),
+        )
     return wcdma_cells
 
 
-def parse_gsm_cells(zte_gsm_data):
+def parse_gsm_cells(zte_gsm_data, atoll_data):
     """
     Parse ZTE GSM cell data.
 
     Args:
         zte_gsm_data: list of tuples
+        atoll_data: dict
 
     Returns:
         list of dicts
@@ -111,7 +116,9 @@ def parse_gsm_cells(zte_gsm_data):
             'insert_date': Date.get_date('network_live'),
         }
         if tch_freqs:
-            gsm_cells.append(cell)
+            gsm_cells.append(
+                add_physical_params(atoll_data, cell),
+            )
         else:
             bcch_trx_cells.append(cell)
 
@@ -121,6 +128,8 @@ def parse_gsm_cells(zte_gsm_data):
             gsm_cells,
         ))
         if not one_trx_cells:
-            gsm_cells.append(bcch_cell)
+            gsm_cells.append(
+                add_physical_params(atoll_data, bcch_cell),
+            )
 
     return gsm_cells

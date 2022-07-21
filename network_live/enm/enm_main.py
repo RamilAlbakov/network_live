@@ -9,12 +9,13 @@ from network_live.enm.wcdma_parser import parse_wcdma_cells
 from network_live.sql import update_network_live
 
 
-def enm_main(technology):
+def enm_main(technology, atoll_data=None):
     """
     Update network live with ENM cells.
 
     Args:
         technology: string
+        atoll_data: dict
 
     Returns:
         string
@@ -28,7 +29,7 @@ def enm_main(technology):
         enm_lte_cells = Enm.execute_enm_command('lte_cells')
         enm_enodeb_ids = Enm.execute_enm_command('enodeb_id')
         enodeb_ids = parse_node_parameter(enm_enodeb_ids, 'MeContext')
-        lte_cells = parse_lte_cells(enm_lte_cells, enodeb_ids, node_ips)
+        lte_cells = parse_lte_cells(enm_lte_cells, enodeb_ids, node_ips, atoll_data)
         if lte_cells:
             return update_network_live(lte_cells, oss, technology)
     elif technology == 'WCDMA':
@@ -42,6 +43,7 @@ def enm_main(technology):
             enm_iublink_data,
             enm_site_names,
             node_ips,
+            atoll_data,
         )
         if wcdma_cells:
             return update_network_live(wcdma_cells, oss, technology)
@@ -50,7 +52,7 @@ def enm_main(technology):
         enm_sites = Enm.execute_enm_command('gsm_sites')
         enm_gsmcells = Enm.execute_enm_command('gsm_cells')
         enm_channel_group = Enm.execute_enm_command('channel_group')
-        gsm_cells = parse_gsm_cells(enm_gsmcells, enm_bsc, enm_sites, enm_channel_group)
+        gsm_cells = parse_gsm_cells(enm_gsmcells, enm_bsc, enm_sites, enm_channel_group, atoll_data)
         if gsm_cells:
             return update_network_live(gsm_cells, oss, technology)
     elif technology == 'NR':

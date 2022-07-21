@@ -2,6 +2,7 @@
 
 from network_live.date import Date
 from network_live.enm.parser_utils import parse_mo_value, parse_node_parameter
+from network_live.physical_data import add_physical_params
 
 
 def parse_sites(enm_sites):
@@ -58,7 +59,7 @@ def parse_channel_group(enm_channel_group):
     return channel_data
 
 
-def parse_gsm_cells(enm_gsmcells, enm_bsc, enm_sites, enm_channel_group):
+def parse_gsm_cells(enm_gsmcells, enm_bsc, enm_sites, enm_channel_group, atoll_data):
     """
     Parse gsm cell data for network live from enm data.
 
@@ -67,6 +68,7 @@ def parse_gsm_cells(enm_gsmcells, enm_bsc, enm_sites, enm_channel_group):
         enm_bsc: enmscripting ElementGroup
         enm_sites: enmscripting ElementGroup
         enm_channel_group: enmscripting ElementGroup
+        atoll_data: dict
 
     Returns:
         list of dicts
@@ -108,5 +110,7 @@ def parse_gsm_cells(enm_gsmcells, enm_bsc, enm_sites, enm_channel_group):
             else:
                 cell[parameter_name] = parameter_value
                 if parameter_name == 'state':
-                    gsm_cells.append(cell)
+                    gsm_cells.append(
+                        add_physical_params(atoll_data, cell),
+                    )
     return gsm_cells
